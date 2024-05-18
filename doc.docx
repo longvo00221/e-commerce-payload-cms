@@ -84,7 +84,37 @@ sau đó vào slug cấu hình     <React.Fragment>
       type:'upload',
       relationTo:'media',
     }
+  sau đó thêm truy vấn của category trong fetchDocs 
+    categories:{
+    query: CATEGORIES,
+  key: 'Categories',
+  }
+  tạo truy vấn graphql với 
+  export const PRODUCT_CATEGORIES = `categories {
+  title
+  id
+  breadcrumbs {
+    id
+    label
+  }
+}`
 
+
+export const CATEGORIES = `query Categories{
+  Categories(limit:300) {
+    doc{
+      id 
+      title
+      media{
+        alt
+        width
+        height
+        url
+      }
+    }
+  }
+}`
+sau đó thay các query từ category hành products-categories trong blocks.ts và products.ts
 cấu trúc sử dụng graphql
 đầu tiên phải khai báo các thành phần trả cần trả về thông qua một file ở trong folder graphQL
 sau đó ta sử dụng truy vấn bằng đoạn code
