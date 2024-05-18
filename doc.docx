@@ -1,0 +1,100 @@
+Add footer additional
+{/* if you want to add the additional data into footer or header there are 3 steps that you need to follow
+    first: modify global.ts in _graphql because this is the file where logic grapql use to query
+    second: modify in Footer.ts in payload/global this is the file that whill set data for server
+    third: modify in payload-types this is the file for types of data use in app
+    after finish all these task you need to payload generate:graphQLSchema and generate:types to apply a new query logic and new types before you config*/}
+
+
+
+
+Add icon into navlink
+// first modify link.ts in _graphql
+export const LINK_FIELDS = ({ disableAppearance, disableLabel }: Args = {}): string => `{
+  ${!disableLabel ? 'label' : ''}
+  ${!disableAppearance ? 'appearance' : ''}
+  type
+  newTab
+  url
+  icon{
+    url
+  }
+  reference {
+    relationTo
+    value {
+      ...on Page {
+        slug
+      }
+    }
+  }
+}`
+
+// second: modify link.ts in payload/fields
+  linkResult.fields.push({
+      type: 'row',
+      fields: [
+        ...linkTypes,
+        {
+          name: 'label',
+          label: 'Label',
+          type: 'text',
+          required: true,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'icon',
+          label: 'Icon',
+          type: 'upload',
+          relationTo: 'media',
+        }
+      ],
+    })
+
+
+cách sửa hoặc custom hero
+sau đó vào src/app/_heros thì thêm folder mà mình muốn vào
+sau đó vào src/app/_component/Hero/tsx sau đó thêm heros vào trong heros _component
+sau đó vào src/payload/fields/hero.ts thêm vào đây
+sau đó vào slug cấu hình     <React.Fragment>
+      {slug === 'home' ? (
+        <Gutter>
+          <Hero {...hero}/>
+        </Gutter>
+      ) : (
+       <div>
+          <Hero {...hero} />
+          <Blocks
+            blocks={layout}
+            disableTopPadding={!hero || hero?.type === 'none' || hero?.type === 'lowImpact'}
+          />
+       </div>
+      )}
+     
+    </React.Fragment>
+  
+
+  thêm category
+  đầu tiên thêm ở src/payload/payload-types thêm media
+   media?:string | Media | null;
+  sau đó thêm ở src/payload/collections
+   {
+      name:'media',
+      type:'upload',
+      relationTo:'media',
+    }
+
+cấu trúc sử dụng graphql
+đầu tiên phải khai báo các thành phần trả cần trả về thông qua một file ở trong folder graphQL
+sau đó ta sử dụng truy vấn bằng đoạn code
+const data = await fetch(url,{
+  method: Post hoặc put hoặc get
+  headers:{
+    content-type : application/json
+  }
+  cache:'no-store'
+  body: JSON.stringify({
+    query: QUERY (query này được cấu hình bên trong file graphQL bên trong folder sql)
+  })
+})sau đó sử lý then catch để lấy data

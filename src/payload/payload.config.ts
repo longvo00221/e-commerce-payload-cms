@@ -43,6 +43,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     bundler: webpackBundler(), // bundler-config
+    css: path.resolve(__dirname, '../../tailwind.css'),
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
@@ -54,6 +55,16 @@ export default buildConfig({
     webpack: config => {
       return {
         ...config,
+        module: {
+          ...config.module,
+          rules: [
+            ...config.module.rules,
+            {
+              test: /\tailwind.css$/i,
+              use: ['css-loader', 'postcss-loader'],
+            },
+          ],
+        },
         resolve: {
           ...config.resolve,
           alias: {
