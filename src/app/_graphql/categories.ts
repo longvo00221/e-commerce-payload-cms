@@ -8,9 +8,10 @@ export const PRODUCT_CATEGORIES = `categories {
 }`
 
 
-export const CATEGORIES = `query Categories{
+export const CATEGORIES = `
+query Categories{
   Categories(limit:300) {
-    doc{
+    docs{
       id 
       title
       media{

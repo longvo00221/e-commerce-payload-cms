@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Category } from '../../../payload/payload-types';
-import classes from './Categories.module.scss';
+import classes from './index.module.scss';
 import Link from 'next/link';
 import CategoryCard from './CategoryCard';
 type CategoriesProps = {
@@ -8,16 +8,15 @@ type CategoriesProps = {
 };
 
 const Categories:React.FC<CategoriesProps> = ({categories}) => {
-    
     return <section className={classes.container}>
         <div className={classes.titleWrapper}>
             <h3>Shop by categories</h3>
             <Link href="/products">Show All</Link>
         </div>
         <div className={classes.list}>{
-            categories.map((category:Category) => {
+            categories?.map((category:Category,index) => {
                 return (
-                    <CategoryCard category={category}/>
+                    <CategoryCard key={index} category={category}/>
                 )
             })
         }</div>

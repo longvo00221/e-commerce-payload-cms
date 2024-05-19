@@ -13,7 +13,7 @@ type HeaderComponentProps = {
 
 const HeaderComponent: React.FC<HeaderComponentProps> = ({ header }) => {
     const pathname = usePathname();
-    return <nav className={['md:px-9 px-2 py-0', noHeaderFooterUrls.includes(pathname) && 'hidden'].filter(Boolean).join(' ')}>
+    return <nav className={['py-0', noHeaderFooterUrls.includes(pathname) && 'hidden'].filter(Boolean).join(' ')}>
         <Gutter className='flex items-center justify-between flex-wrap'>
             <Link href="/">
                 <Image loading="lazy" src="/logo-black.svg" alt="logo" width="170" height="50" />
