@@ -77,14 +77,10 @@ export const CollectionArchive: React.FC<Props> = props => {
 
   useEffect(() => {
     if (!isLoading && typeof results.page !== 'undefined') {
-      // scrollToRef()
     }
   }, [isLoading, scrollToRef, results])
 
   useEffect(() => {
-    // hydrate the block with fresh content after first render
-    // don't show loader unless the request takes longer than x ms
-    // and don't show it during initial hydration
     const timer: NodeJS.Timeout = setTimeout(() => {
       if (hasHydrated) {
         setIsLoading(true)

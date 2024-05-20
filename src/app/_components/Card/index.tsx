@@ -75,37 +75,9 @@ export const Card: React.FC<{
         )}
       </Link>
       <div className={classes.content}>
-        {showCategories && hasCategories && (
-          <div className={classes.leader}>
-            {showCategories && hasCategories && (
-              <div>
-                {categories?.map((category, index) => {
-                  if (typeof category === 'object' && category !== null) {
-                    const { title: titleFromCategory } = category
-
-                    const categoryTitle = titleFromCategory || 'Untitled category'
-
-                    const isLast = index === categories.length - 1
-
-                    return (
-                      <Fragment key={index}>
-                        {categoryTitle}
-                        {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
-                    )
-                  }
-
-                  return null
-                })}
-              </div>
-            )}
-          </div>
-        )}
         {titleToUse && (
           <h4 className={classes.title}>
-            <Link href={href} className={classes.titleLink}>
-              {titleToUse}
-            </Link>
+            {titleToUse}
           </h4>
         )}
         {description && (

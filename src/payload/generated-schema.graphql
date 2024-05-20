@@ -43,7 +43,7 @@ type Page {
   title: String
   publishedOn: DateTime
   hero: Page_Hero
-  layout: [Page_Layout!]!
+  layout: [Page_Layout!]
   slug: String
   meta: Page_Meta
   updatedAt: DateTime
@@ -1270,7 +1270,7 @@ type Product {
   id: String
   title: String
   publishedOn: DateTime
-  layout: [Product_Layout!]!
+  layout: [Product_Layout!]
   stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
@@ -2669,7 +2669,7 @@ type PageVersion_Version {
   title: String
   publishedOn: DateTime
   hero: PageVersion_Version_Hero
-  layout: [PageVersion_Version_Layout!]!
+  layout: [PageVersion_Version_Layout!]
   slug: String
   meta: PageVersion_Version_Meta
   updatedAt: DateTime
@@ -4344,7 +4344,7 @@ type ProductVersion {
 type ProductVersion_Version {
   title: String
   publishedOn: DateTime
-  layout: [ProductVersion_Version_Layout!]!
+  layout: [ProductVersion_Version_Layout!]
   stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
