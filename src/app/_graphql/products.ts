@@ -26,6 +26,8 @@ export const PRODUCT = `
           ${MEDIA_BLOCK}
           ${ARCHIVE_BLOCK}
         }
+        price,
+        color,
         priceJSON
         enablePaywall
         relatedProducts {

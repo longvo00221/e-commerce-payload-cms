@@ -65,7 +65,7 @@ export const Card: React.FC<{
   useEffect(() => {
     setPrice(priceFromJSON(priceJSON))
   }, [priceJSON])
-
+  const priceProduct = doc?.price
   return (
     <div className={[classes.card, className].filter(Boolean).join(' ')}>
       <Link href={href} className={classes.mediaWrapper}>
@@ -85,7 +85,8 @@ export const Card: React.FC<{
             {description && <p className={classes.description}>{sanitizedDescription}</p>}
           </div>
         )}
-        {doc && <Price product={doc} />}
+        {/* {doc && <Price product={doc} />} */}
+        <div className="font-bold text-xl">{priceProduct}$</div>
       </div>
     </div>
   )

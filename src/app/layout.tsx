@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import {Jost} from 'next/font/google'
+import {Montserrat} from 'next/font/google'
 import { AdminBar } from './_components/AdminBar'
 import { Footer } from './_components/Footer'
 import { Header } from './_components/Header'
@@ -9,10 +9,10 @@ import { InitTheme } from './_providers/Theme/InitTheme'
 import { mergeOpenGraph } from './_utilities/mergeOpenGraph'
 import "./global.css"
 import './_css/app.scss'
-const jost = Jost({
+const monst = Montserrat({
   subsets:['latin'],
   weight: ['400', '500', '600', '700'],
-  variable:'--font-jost',
+  variable:'--font-montserrat',
 })
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -22,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className={jost.variable}>
+      <body className={monst.variable}>
         <Providers>
           <AdminBar />
           {/* @ts-expect-error */}

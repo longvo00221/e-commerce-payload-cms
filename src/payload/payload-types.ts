@@ -385,6 +385,8 @@ export interface Product {
     | null;
   categories?: (string | Category)[] | null;
   relatedProducts?: (string | Product)[] | null;
+  color: string;
+  price?: string | null;
   slug?: string | null;
   skipSync?: boolean | null;
   meta?: {

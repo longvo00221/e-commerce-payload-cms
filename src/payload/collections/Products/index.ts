@@ -12,6 +12,8 @@ import { beforeProductChange } from './hooks/beforeChange'
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { revalidateProduct } from './hooks/revalidateProduct'
 import { ProductSelect } from './ui/ProductSelect'
+import colorField from '../../fields/colorPicker/colorField'
+import priceField from '../../fields/price/priceField'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -141,6 +143,8 @@ const Products: CollectionConfig = {
         }
       },
     },
+    colorField,
+    priceField,
     slugField(),
     {
       name: 'skipSync',

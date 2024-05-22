@@ -1,13 +1,15 @@
 @use '../../_css/common.scss' as *;
-
+@import '~payload/scss';
 .productHero {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   width: 100%;
+  align-items: center;
 
   @include small-break {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
@@ -15,6 +17,9 @@
   position: relative;
   min-height: 400px;
   background-color: var(--color-dark-50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @include small-break {
     min-height: 250px;
@@ -26,12 +31,27 @@
   object-fit: contain;
   aspect-ratio: 1/1;
   max-width: 100%;
+  max-height: 100%;
 }
 
 .details {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+  padding: 20px;
+  background-color: var(--color-light-100);
+  border-radius: 8px;
+}
+
+.productName {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--color-dark-900);
+
+  @include small-break {
+    font-size: 28px;
+  }
 }
 
 .categoryWrapper {
@@ -43,10 +63,13 @@
 
 .category {
   font-size: 16px;
+  font-weight: 500;
+  color: var(--color-primary-700);
 }
 
 .stock {
   color: var(--color-green-500);
+  font-weight: 600;
 }
 
 .separator {
@@ -56,4 +79,28 @@
 
 .description {
   padding: 30px 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-dark-700);
+
+  @include small-break {
+    font-size: 16px;
+    padding: 20px 0;
+  }
+}
+.chip {
+  border-radius: 50%;
+  border: $style-stroke-width-m solid #fff;
+  height: base(1.25);
+  width: base(1.25);
+  margin-right: base(.5);
+  box-shadow: none;
+
+  &--selected {
+    box-shadow: 0 0 0 $style-stroke-width-m $color-dark-gray;
+  }
+
+  &--clickable {
+    cursor: pointer;
+  }
 }

@@ -3,7 +3,7 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import qs from 'qs'
 
-import { Category, Product } from '../../../payload/payload-types'
+import { Product } from '../../../payload/payload-types'
 import type { ArchiveBlockProps } from '../../_blocks/ArchiveBlock/types'
 import { useFilter } from '../../_providers/Filter'
 import { Card } from '../Card'
@@ -11,7 +11,6 @@ import { PageRange } from '../PageRange'
 import { Pagination } from '../Pagination'
 
 import classes from './index.module.scss'
-import { Gutter } from '../Gutter'
 
 type Result = {
   totalDocs: number
@@ -34,6 +33,7 @@ export type Props = {
   populatedDocs?: ArchiveBlockProps['populatedDocs']
   populatedDocsTotal?: ArchiveBlockProps['populatedDocsTotal']
   categories?: ArchiveBlockProps['categories']
+  infiniteScroll?: boolean
 }
 
 export const CollectionArchive: React.FC<Props> = props => {
@@ -47,6 +47,7 @@ export const CollectionArchive: React.FC<Props> = props => {
     limit = 10,
     populatedDocs,
     populatedDocsTotal,
+    infiniteScroll = false,
   } = props
 
   const [results, setResults] = useState<Result>({
@@ -62,31 +63,10 @@ export const CollectionArchive: React.FC<Props> = props => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const hasHydrated = useRef(false)
+  const observerRef = useRef<HTMLDivElement | null>(null)
   const [page, setPage] = useState(1)
 
-  const scrollToRef = useCallback(() => {
-    const { current } = scrollRef
-    if (current) {
-      // current.scrollIntoView({
-      //   behavior: 'smooth',
-      // })
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!isLoading && typeof results.page !== 'undefined') {
-    }
-  }, [isLoading, scrollToRef, results])
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      if (hasHydrated) {
-        setIsLoading(true)
-      }
-    }, 500)
-
+  const fetchMoreData = useCallback(async (reset = false) => {
     const searchQuery = qs.stringify(
       {
         sort,
@@ -109,44 +89,73 @@ export const CollectionArchive: React.FC<Props> = props => {
       { encode: false },
     )
 
-    const makeRequest = async () => {
-      try {
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${relationTo}?${searchQuery}`,
-        )
-        const json = await req.json()
-        clearTimeout(timer)
-        hasHydrated.current = true
+    try {
+      setIsLoading(true)
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${relationTo}?${searchQuery}`,
+      )
+      const json = await req.json()
+      const { docs, totalDocs, totalPages, hasNextPage, nextPage } = json as Result
 
-        const { docs } = json as { docs: Product[] }
+      setResults(prevResults => ({
+        ...prevResults,
+        docs: reset ? docs : [...prevResults.docs, ...docs],
+        totalDocs,
+        totalPages,
+        hasNextPage,
+        nextPage,
+      }))
+      setIsLoading(false)
+      if (typeof onResultChange === 'function') {
+        onResultChange(json)
+      }
+    } catch (err) {
+      console.warn(err) // eslint-disable-line no-console
+      setIsLoading(false)
+      setError(`Unable to load "${relationTo} archive" data at this time.`)
+    }
+  }, [page, categoryFilters, relationTo, onResultChange, sort, limit, infiniteScroll])
 
-        if (docs && Array.isArray(docs)) {
-          setResults(json)
-          setIsLoading(false)
-          if (typeof onResultChange === 'function') {
-            onResultChange(json)
+  useEffect(() => {
+    if (infiniteScroll) {
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting && results.hasNextPage && !isLoading) {
+            setPage(prevPage => prevPage + 1)
           }
+        },
+        { threshold: 1.0 }
+      )
+
+      if (observerRef.current) {
+        observer.observe(observerRef.current)
+      }
+
+      return () => {
+        if (observerRef.current) {
+          observer.unobserve(observerRef.current)
         }
-      } catch (err) {
-        console.warn(err) // eslint-disable-line no-console
-        setIsLoading(false)
-        setError(`Unable to load "${relationTo} archive" data at this time.`)
       }
     }
+  }, [results.hasNextPage, isLoading, infiniteScroll])
 
-    makeRequest()
+  useEffect(() => {
+    fetchMoreData(page === 1)
+  }, [page, fetchMoreData])
 
-    return () => {
-      if (timer) clearTimeout(timer)
-    }
-  }, [page, categoryFilters, relationTo, onResultChange, sort, limit])
+  useEffect(() => {
+    setPage(1)
+    setResults(prevResults => ({
+      ...prevResults,
+      docs: [],
+    }))
+  }, [categoryFilters, sort])
 
   return (
     <div className={[classes.collectionArchive, className].filter(Boolean).join(' ')}>
-      <div ref={scrollRef} className={classes.scrollRef} />
       {!isLoading && error && <div>{error}</div>}
       <Fragment>
-        {showPageRange !== false && (
+        {showPageRange !== false && !infiniteScroll && (
           <div className={classes.pageRange}>
             <PageRange
               totalDocs={results.totalDocs}
@@ -163,14 +172,19 @@ export const CollectionArchive: React.FC<Props> = props => {
           })}
         </div>
 
-        {results.totalPages > 1 && (
-          <Pagination
-            className={classes.pagination}
-            page={results.page}
-            totalPages={results.totalPages}
-            onClick={setPage}
-          />
+        {infiniteScroll ? (
+          <div ref={observerRef} className={classes.observerRef} />
+        ) : (
+          results.totalPages > 1 && (
+            <Pagination
+              className={classes.pagination}
+              page={results.page}
+              totalPages={results.totalPages}
+              onClick={setPage}
+            />
+          )
         )}
+        {isLoading && <div>Loading more items...</div>}
       </Fragment>
     </div>
   )

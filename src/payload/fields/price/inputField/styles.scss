@@ -1,0 +1,26 @@
+/* styles.scss */
+
+.custom-price-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .custom-price-input label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .custom-price-input input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  .custom-price-input input:focus {
+    outline: none;
+    border-color: #007bff; /* Example focus color */
+  }
+  

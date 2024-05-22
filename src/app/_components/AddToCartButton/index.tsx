@@ -53,6 +53,6 @@ export const AddToCartButton: React.FC<{
             }
           : undefined
       }
-    >Add to cart</Button>
+    />
   )
 }

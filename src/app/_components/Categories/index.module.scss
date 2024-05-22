@@ -17,12 +17,14 @@
 }
 
 .list {
-  display: grid;
+  display: flex;
   gap: 30px;
   padding: 0;
-  grid-template-columns: repeat(3, 1fr);
+  overflow: scroll;
+  width:100%;
 
   @include small-break {
+    display: grid;
     grid-template-columns: 1fr;
   }
 }

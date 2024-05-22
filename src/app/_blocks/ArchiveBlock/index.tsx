@@ -36,10 +36,10 @@ export const ArchiveBlock: React.FC<
         relationTo={relationTo}
         populatedDocs={populatedDocs}
         populatedDocsTotal={populatedDocsTotal}
-        selectedDocs={selectedDocs}
+        showPageRange={false}
         categories={categories}
         limit={limit}
-        sort="-publishedOn"
+        infiniteScroll={false}
       />
     </div>
   )

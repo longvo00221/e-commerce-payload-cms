@@ -5,8 +5,8 @@
 
 :root {
   --base: 24px;
-  --font-body: 'Jost', sans-serif;
-  --font-jost: 'Jost', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
 
   --gutter-h: 180px;
   --block-padding: 120px;
@@ -45,7 +45,7 @@ body,
 }
 
 body {
-  font-family: var(--font-jost);
+  font-family: var(--font-monsterrat);
   margin: 0;
   padding: 0;
   color: var(--color-dark-500);

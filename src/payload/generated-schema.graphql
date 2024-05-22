@@ -1277,6 +1277,8 @@ type Product {
   paywall: [Product_Paywall!]
   categories: [Category!]
   relatedProducts: [Product!]
+  color: String
+  price: String
   slug: String
   skipSync: Boolean
   meta: Product_Meta
@@ -3603,6 +3605,8 @@ input Product_where {
   enablePaywall: Product_enablePaywall_operator
   categories: Product_categories_operator
   relatedProducts: Product_relatedProducts_operator
+  color: Product_color_operator
+  price: Product_price_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
   meta__title: Product_meta__title_operator
@@ -3677,6 +3681,27 @@ input Product_relatedProducts_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
+  exists: Boolean
+}
+
+input Product_color_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Product_price_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -3777,6 +3802,8 @@ input Product_where_and {
   enablePaywall: Product_enablePaywall_operator
   categories: Product_categories_operator
   relatedProducts: Product_relatedProducts_operator
+  color: Product_color_operator
+  price: Product_price_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
   meta__title: Product_meta__title_operator
@@ -3798,6 +3825,8 @@ input Product_where_or {
   enablePaywall: Product_enablePaywall_operator
   categories: Product_categories_operator
   relatedProducts: Product_relatedProducts_operator
+  color: Product_color_operator
+  price: Product_price_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
   meta__title: Product_meta__title_operator
@@ -3830,6 +3859,8 @@ type ProductsDocAccessFields {
   paywall: ProductsDocAccessFields_paywall
   categories: ProductsDocAccessFields_categories
   relatedProducts: ProductsDocAccessFields_relatedProducts
+  color: ProductsDocAccessFields_color
+  price: ProductsDocAccessFields_price
   slug: ProductsDocAccessFields_slug
   skipSync: ProductsDocAccessFields_skipSync
   meta: ProductsDocAccessFields_meta
@@ -4042,6 +4073,52 @@ type ProductsDocAccessFields_relatedProducts_Update {
 }
 
 type ProductsDocAccessFields_relatedProducts_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_color {
+  create: ProductsDocAccessFields_color_Create
+  read: ProductsDocAccessFields_color_Read
+  update: ProductsDocAccessFields_color_Update
+  delete: ProductsDocAccessFields_color_Delete
+}
+
+type ProductsDocAccessFields_color_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_color_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_color_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_color_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_price {
+  create: ProductsDocAccessFields_price_Create
+  read: ProductsDocAccessFields_price_Read
+  update: ProductsDocAccessFields_price_Update
+  delete: ProductsDocAccessFields_price_Delete
+}
+
+type ProductsDocAccessFields_price_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_price_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_price_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_price_Delete {
   permission: Boolean!
 }
 
@@ -4351,6 +4428,8 @@ type ProductVersion_Version {
   paywall: [ProductVersion_Version_Paywall!]
   categories: [Category!]
   relatedProducts: [Product!]
+  color: String
+  price: String
   slug: String
   skipSync: Boolean
   meta: ProductVersion_Version_Meta
@@ -4559,6 +4638,8 @@ input versionsProduct_where {
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
   version__categories: versionsProduct_version__categories_operator
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
+  version__color: versionsProduct_version__color_operator
+  version__price: versionsProduct_version__price_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
   version__meta__title: versionsProduct_version__meta__title_operator
@@ -4645,6 +4726,27 @@ input versionsProduct_version__relatedProducts_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
+  exists: Boolean
+}
+
+input versionsProduct_version__color_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input versionsProduct_version__price_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -4774,6 +4876,8 @@ input versionsProduct_where_and {
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
   version__categories: versionsProduct_version__categories_operator
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
+  version__color: versionsProduct_version__color_operator
+  version__price: versionsProduct_version__price_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
   version__meta__title: versionsProduct_version__meta__title_operator
@@ -4799,6 +4903,8 @@ input versionsProduct_where_or {
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
   version__categories: versionsProduct_version__categories_operator
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
+  version__color: versionsProduct_version__color_operator
+  version__price: versionsProduct_version__price_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
   version__meta__title: versionsProduct_version__meta__title_operator
@@ -9241,6 +9347,8 @@ type ProductsFields {
   paywall: ProductsFields_paywall
   categories: ProductsFields_categories
   relatedProducts: ProductsFields_relatedProducts
+  color: ProductsFields_color
+  price: ProductsFields_price
   slug: ProductsFields_slug
   skipSync: ProductsFields_skipSync
   meta: ProductsFields_meta
@@ -9453,6 +9561,52 @@ type ProductsFields_relatedProducts_Update {
 }
 
 type ProductsFields_relatedProducts_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_color {
+  create: ProductsFields_color_Create
+  read: ProductsFields_color_Read
+  update: ProductsFields_color_Update
+  delete: ProductsFields_color_Delete
+}
+
+type ProductsFields_color_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_color_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_color_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_color_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_price {
+  create: ProductsFields_price_Create
+  read: ProductsFields_price_Read
+  update: ProductsFields_price_Update
+  delete: ProductsFields_price_Delete
+}
+
+type ProductsFields_price_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_price_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_price_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_price_Delete {
   permission: Boolean!
 }
 
@@ -12181,6 +12335,8 @@ input mutationProductInput {
   paywall: JSON
   categories: [String]
   relatedProducts: [String]
+  color: String!
+  price: String
   slug: String
   skipSync: Boolean
   meta: mutationProduct_MetaInput
@@ -12210,6 +12366,8 @@ input mutationProductUpdateInput {
   paywall: JSON
   categories: [String]
   relatedProducts: [String]
+  color: String
+  price: String
   slug: String
   skipSync: Boolean
   meta: mutationProductUpdate_MetaInput

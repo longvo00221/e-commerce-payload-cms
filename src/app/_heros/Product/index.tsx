@@ -1,3 +1,4 @@
+'use client'
 import React, { Fragment } from 'react'
 
 import { Category, Product } from '../../../payload/payload-types'
@@ -5,14 +6,14 @@ import { AddToCartButton } from '../../_components/AddToCartButton'
 import { Gutter } from '../../_components/Gutter'
 import { Media } from '../../_components/Media'
 import { Price } from '../../_components/Price'
-
+import { useFilter } from '../../_providers/Filter'
 import classes from './index.module.scss'
-
+import Link from 'next/link'
 export const ProductHero: React.FC<{
   product: Product
 }> = ({ product }) => {
   const { title, categories, meta: { image: metaImage, description } = {} } = product
-
+  const { categoryFilters, setCategoryFilters  } = useFilter()
   return (
     <Gutter className={classes.productHero}>
       <div className={classes.mediaWrapper}>
@@ -23,36 +24,49 @@ export const ProductHero: React.FC<{
       </div>
 
       <div className={classes.details}>
-        <h3 className={classes.title}>{title}</h3>
+        <h2 className="font-bold text-2xl">{title}</h2>
 
         <div className={classes.categoryWrapper}>
           <div className={classes.categories}>
             {categories?.map((category, index) => {
-              const { title: categoryTitle } = category as Category
+              const { title: categoryTitle,id: categoryID } = category as Category
 
               const titleToUse = categoryTitle || 'Generic'
               const isLast = index === categories.length - 1
 
               return (
-                <p key={index} className={classes.category}>
-                  {titleToUse} {!isLast && <Fragment>, &nbsp;</Fragment>}
+                <div key={index} className={classes.category}>
+                  <span className='font-semibol'>Categories:</span> <Link href="/products" onClick={()=>setCategoryFilters([categoryID])}>{titleToUse} {!isLast && <Fragment>, &nbsp;</Fragment>}</Link>
                   <span className={classes.separator}>|</span>
-                </p>
+                </div>
               )
             })}
           </div>
           <p className={classes.stock}> In stock</p>
         </div>
 
-        <Price product={product} button={false} />
-
+       <div className="flex items-start justify-between flex-col gap-5">
+       <div>
+          <h3 className="font-bold mr-1">Price:</h3>{product?.price}$
+          </div>
+          <div className="Color">
+            <ColorComponent color={product?.color}/>
+          </div>
+       </div>
         <div className={classes.description}>
-          <h6>Description</h6>
-          <p>{description}</p>
+          <h3 className="font-bold text-lg">Description</h3>
+          <p className="text-sm font-normal">{description}</p>
         </div>
 
         <AddToCartButton product={product} className={classes.addToCartButton} />
       </div>
     </Gutter>
   )
+}
+const ColorComponent = (color:any) => {
+  const colorr = color.color
+  return (<div>
+    <h3 className="font-bold">Color:</h3>
+    <div className={classes.chip} style={{ backgroundColor: colorr as string }} />
+  </div>)
 }
