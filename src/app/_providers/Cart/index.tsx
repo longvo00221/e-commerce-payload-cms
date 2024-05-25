@@ -223,29 +223,36 @@ export const CartProvider = props => {
     })
   }, [])
 
-  // calculate the new cart total whenever the cart changes
   useEffect(() => {
-    if (!hasInitialized) return
+    if (!hasInitialized) return;
+  
+    const newTotal = cart?.items?.reduce((acc, item) => {
 
-    const newTotal =
-      cart?.items?.reduce((acc, item) => {
-        return (
-          acc +
-          (typeof item.product === 'object'
-            ? JSON.parse(item?.product?.priceJSON || '{}')?.data?.[0]?.unit_amount *
-              (typeof item?.quantity === 'number' ? item?.quantity : 0)
-            : 0)
-        )
-      }, 0) || 0
-
+      
+      // Parse the price if necessary, otherwise directly access it
+      const price = typeof item.product === 'object' ? parseFloat(item.product.price) : 0;
+  
+      // Debugging: Check the price before calculation
+      console.log(price);
+  
+      // Check if the price is a number and add it to the total
+      return typeof price === 'number'
+        ? acc + price * (typeof item?.quantity === 'number' ? item?.quantity : 0)
+        : acc;
+    }, 0) || 0;
+  
+    // Debugging: Check the total before setting
+    console.log(newTotal);
+  
     setTotal({
-      formatted: (newTotal / 100).toLocaleString('en-US', {
+      formatted: newTotal.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
       }),
       raw: newTotal,
-    })
-  }, [cart, hasInitialized])
+    });
+  }, [cart, hasInitialized]);
+  
 
   return (
     <Context.Provider

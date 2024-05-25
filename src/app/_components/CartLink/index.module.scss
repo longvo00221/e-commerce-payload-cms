@@ -2,6 +2,13 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  position:relative;
+  padding:10px;
+  border-radius:50%
+  
+}
+.cartLink:hover{
+  background-color:rgba(0,0,0,.1)
 }
 
 .quantity {

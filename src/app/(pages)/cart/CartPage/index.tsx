@@ -26,7 +26,7 @@ export const CartPage: React.FC<{
   const { user } = useAuth()
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
-
+  console.log(cartTotal)
   return (
     <Fragment>
       <br />
@@ -59,13 +59,13 @@ export const CartPage: React.FC<{
               <div>
                 {/* CART LIST HEADER */}
                 <div className={classes.header}>
-                  <p>Products</p>
+                  <h3 className="font-bold text-lg">Products</h3>
                   <div className={classes.headerItemDetails}>
                     <p></p>
                     <p></p>
-                    <p>Quantity</p>
+                    <h3 className="font-bold text-lg">Quantity</h3>
                   </div>
-                  <p className={classes.headersubtotal}>Subtotal</p>
+                  <h3 className={classes.headersubtotal}>Subtotal</h3>
                 </div>
                 {/* CART ITEM LIST */}
                 <ul className={classes.itemsList}>

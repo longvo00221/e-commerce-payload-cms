@@ -19,6 +19,7 @@
   grid-template-columns: 100px 2fr 1fr;
   gap: 24px;
   margin-bottom: 8px;
+  border-bottom:1px solid #ccc;
 
   @include small-break {
     display: none;
@@ -32,6 +33,7 @@
 
 .headersubtotal {
   text-align: end;
+  font-weight:700;
 }
 
 .itemsList {

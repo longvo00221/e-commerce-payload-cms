@@ -16,9 +16,11 @@ const FooterComponent: React.FC<FooterComponentProps> = ({ footer }) => {
     const pathname = usePathname()
     const navItems = footer?.navItems || []
     return (
-        <footer className={noHeaderFooterUrls.includes(pathname) ? 'hidden' : ''}>
+        <footer className={noHeaderFooterUrls.includes(pathname) ? 'hidden md:mt-10 mt-5' : 'md:mt-[100px] mt-[50px]'}>
             <Gutter>
-                <ul className='grid justify-center gap-8 p-0 md:grid-cols-4 lg:grid-cols-2 sm:grid-cols-1 md:my-16 '>
+            <h3 className="font-semibold text-3xl">Why choose us ?</h3>
+                <ul className='grid justify-center gap-8 p-0 md:grid-cols-4 lg:grid-cols-2 sm:grid-cols-1 md:my-10 '>
+                   
                     {inclusions.map((item, index) => (
                         <li key={item.title}>
                             <Image className='mb-4' src={item.icon} alt={item.title} width={36} height={36} loading='lazy' />

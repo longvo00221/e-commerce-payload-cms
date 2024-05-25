@@ -10,7 +10,7 @@ type CategoriesProps = {
 const Categories:React.FC<CategoriesProps> = ({categories}) => {
     return <section className={classes.container}>
         <div className={classes.titleWrapper}>
-            <h3 className="font-semibold text-xl">We have anything you need</h3>
+            <h3 className="font-semibold text-3xl">We have anything you need</h3>
         </div>
         <div className={classes.list}>{
             categories?.map((category:Category,index) => {

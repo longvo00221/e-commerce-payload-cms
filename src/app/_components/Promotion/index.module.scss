@@ -4,15 +4,22 @@
   display: grid;
   grid-template-columns: 50% 1fr;
   gap: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  margin-top:100px;
+  align-items: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 
   @include small-break {
     grid-template-columns: 1fr;
+    margin-top:50px
   }
 }
 
 .title {
-  font-weight: 400;
+  font-weight: 600;
+  font-size:30px
 }
 
 .textBox {
