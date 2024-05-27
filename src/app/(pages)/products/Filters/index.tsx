@@ -22,7 +22,7 @@ const Filters = ({ categories }: { categories: Category[] }) => {
       setCategoryFilters([...categoryFilters, categoryId])
     }
   }
-
+  // console.log(categories)
   const handleSort = (value: string) => setSort(value)
 
   return (
@@ -30,7 +30,7 @@ const Filters = ({ categories }: { categories: Category[] }) => {
       <div>
         <h6 className={classes.title}>Categories</h6>
         <div className={classes.categories}>
-          {categories.map(category => {
+          {categories?.filter(category => category.parent?.title === 'stores')?.map(category => {
             const isSelected = categoryFilters.includes(category.id)
 
             return (

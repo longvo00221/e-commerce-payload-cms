@@ -23,6 +23,9 @@ type Query {
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
+  Service(id: String!, draft: Boolean): Service
+  Services(draft: Boolean, where: Service_where, limit: Int, page: Int, sort: String): Services
+  docAccessService(id: String!): servicesDocAccess
   Redirect(id: String!, draft: Boolean): Redirect
   Redirects(draft: Boolean, where: Redirect_where, limit: Int, page: Int, sort: String): Redirects
   docAccessRedirect(id: String!): redirectsDocAccess
@@ -1079,6 +1082,7 @@ enum Archive_relationTo {
 type Category {
   id: String
   title: String!
+  description: String!
   media(where: Category_Media_where): Media
   parent: Category
   breadcrumbs: [Category_Breadcrumbs!]
@@ -5876,6 +5880,7 @@ type Categories {
 
 input Category_where {
   title: Category_title_operator
+  description: Category_description_operator
   media: Category_media_operator
   parent: Category_parent_operator
   breadcrumbs__doc: Category_breadcrumbs__doc_operator
@@ -5890,6 +5895,16 @@ input Category_where {
 }
 
 input Category_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Category_description_operator {
   equals: String
   not_equals: String
   like: String
@@ -5991,6 +6006,7 @@ input Category_id_operator {
 
 input Category_where_and {
   title: Category_title_operator
+  description: Category_description_operator
   media: Category_media_operator
   parent: Category_parent_operator
   breadcrumbs__doc: Category_breadcrumbs__doc_operator
@@ -6006,6 +6022,7 @@ input Category_where_and {
 
 input Category_where_or {
   title: Category_title_operator
+  description: Category_description_operator
   media: Category_media_operator
   parent: Category_parent_operator
   breadcrumbs__doc: Category_breadcrumbs__doc_operator
@@ -6029,6 +6046,7 @@ type categoriesDocAccess {
 
 type CategoriesDocAccessFields {
   title: CategoriesDocAccessFields_title
+  description: CategoriesDocAccessFields_description
   media: CategoriesDocAccessFields_media
   parent: CategoriesDocAccessFields_parent
   breadcrumbs: CategoriesDocAccessFields_breadcrumbs
@@ -6056,6 +6074,29 @@ type CategoriesDocAccessFields_title_Update {
 }
 
 type CategoriesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_description {
+  create: CategoriesDocAccessFields_description_Create
+  read: CategoriesDocAccessFields_description_Read
+  update: CategoriesDocAccessFields_description_Update
+  delete: CategoriesDocAccessFields_description_Delete
+}
+
+type CategoriesDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_description_Delete {
   permission: Boolean!
 }
 
@@ -6869,6 +6910,470 @@ type usersMe {
   exp: Int
   token: String
   user: User
+}
+
+type Service {
+  id: String
+  title: String!
+  price: String
+  description(depth: Int): JSON!
+  media(where: Service_Media_where): Media
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+input Service_Media_where {
+  alt: Service_Media_alt_operator
+  caption: Service_Media_caption_operator
+  updatedAt: Service_Media_updatedAt_operator
+  createdAt: Service_Media_createdAt_operator
+  url: Service_Media_url_operator
+  filename: Service_Media_filename_operator
+  mimeType: Service_Media_mimeType_operator
+  filesize: Service_Media_filesize_operator
+  width: Service_Media_width_operator
+  height: Service_Media_height_operator
+  id: Service_Media_id_operator
+  AND: [Service_Media_where_and]
+  OR: [Service_Media_where_or]
+}
+
+input Service_Media_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Service_Media_caption_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input Service_Media_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Service_Media_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Service_Media_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Service_Media_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Service_Media_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Service_Media_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Service_Media_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Service_Media_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Service_Media_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Service_Media_where_and {
+  alt: Service_Media_alt_operator
+  caption: Service_Media_caption_operator
+  updatedAt: Service_Media_updatedAt_operator
+  createdAt: Service_Media_createdAt_operator
+  url: Service_Media_url_operator
+  filename: Service_Media_filename_operator
+  mimeType: Service_Media_mimeType_operator
+  filesize: Service_Media_filesize_operator
+  width: Service_Media_width_operator
+  height: Service_Media_height_operator
+  id: Service_Media_id_operator
+  AND: [Service_Media_where_and]
+  OR: [Service_Media_where_or]
+}
+
+input Service_Media_where_or {
+  alt: Service_Media_alt_operator
+  caption: Service_Media_caption_operator
+  updatedAt: Service_Media_updatedAt_operator
+  createdAt: Service_Media_createdAt_operator
+  url: Service_Media_url_operator
+  filename: Service_Media_filename_operator
+  mimeType: Service_Media_mimeType_operator
+  filesize: Service_Media_filesize_operator
+  width: Service_Media_width_operator
+  height: Service_Media_height_operator
+  id: Service_Media_id_operator
+  AND: [Service_Media_where_and]
+  OR: [Service_Media_where_or]
+}
+
+type Services {
+  docs: [Service]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Service_where {
+  title: Service_title_operator
+  price: Service_price_operator
+  description: Service_description_operator
+  media: Service_media_operator
+  updatedAt: Service_updatedAt_operator
+  createdAt: Service_createdAt_operator
+  id: Service_id_operator
+  AND: [Service_where_and]
+  OR: [Service_where_or]
+}
+
+input Service_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Service_price_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Service_description_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+}
+
+input Service_media_operator {
+  equals: String
+  not_equals: String
+  exists: Boolean
+}
+
+input Service_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Service_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Service_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Service_where_and {
+  title: Service_title_operator
+  price: Service_price_operator
+  description: Service_description_operator
+  media: Service_media_operator
+  updatedAt: Service_updatedAt_operator
+  createdAt: Service_createdAt_operator
+  id: Service_id_operator
+  AND: [Service_where_and]
+  OR: [Service_where_or]
+}
+
+input Service_where_or {
+  title: Service_title_operator
+  price: Service_price_operator
+  description: Service_description_operator
+  media: Service_media_operator
+  updatedAt: Service_updatedAt_operator
+  createdAt: Service_createdAt_operator
+  id: Service_id_operator
+  AND: [Service_where_and]
+  OR: [Service_where_or]
+}
+
+type servicesDocAccess {
+  fields: ServicesDocAccessFields
+  create: ServicesCreateDocAccess
+  read: ServicesReadDocAccess
+  update: ServicesUpdateDocAccess
+  delete: ServicesDeleteDocAccess
+}
+
+type ServicesDocAccessFields {
+  title: ServicesDocAccessFields_title
+  price: ServicesDocAccessFields_price
+  description: ServicesDocAccessFields_description
+  media: ServicesDocAccessFields_media
+  updatedAt: ServicesDocAccessFields_updatedAt
+  createdAt: ServicesDocAccessFields_createdAt
+}
+
+type ServicesDocAccessFields_title {
+  create: ServicesDocAccessFields_title_Create
+  read: ServicesDocAccessFields_title_Read
+  update: ServicesDocAccessFields_title_Update
+  delete: ServicesDocAccessFields_title_Delete
+}
+
+type ServicesDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_price {
+  create: ServicesDocAccessFields_price_Create
+  read: ServicesDocAccessFields_price_Read
+  update: ServicesDocAccessFields_price_Update
+  delete: ServicesDocAccessFields_price_Delete
+}
+
+type ServicesDocAccessFields_price_Create {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_price_Read {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_price_Update {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_price_Delete {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_description {
+  create: ServicesDocAccessFields_description_Create
+  read: ServicesDocAccessFields_description_Read
+  update: ServicesDocAccessFields_description_Update
+  delete: ServicesDocAccessFields_description_Delete
+}
+
+type ServicesDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_description_Delete {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_media {
+  create: ServicesDocAccessFields_media_Create
+  read: ServicesDocAccessFields_media_Read
+  update: ServicesDocAccessFields_media_Update
+  delete: ServicesDocAccessFields_media_Delete
+}
+
+type ServicesDocAccessFields_media_Create {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_media_Read {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_media_Update {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_media_Delete {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_updatedAt {
+  create: ServicesDocAccessFields_updatedAt_Create
+  read: ServicesDocAccessFields_updatedAt_Read
+  update: ServicesDocAccessFields_updatedAt_Update
+  delete: ServicesDocAccessFields_updatedAt_Delete
+}
+
+type ServicesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_createdAt {
+  create: ServicesDocAccessFields_createdAt_Create
+  read: ServicesDocAccessFields_createdAt_Read
+  update: ServicesDocAccessFields_createdAt_Update
+  delete: ServicesDocAccessFields_createdAt_Delete
+}
+
+type ServicesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ServicesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ServicesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ServicesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ServicesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ServicesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
 }
 
 type Redirect {
@@ -8620,6 +9125,7 @@ type Access {
   media: mediaAccess
   categories: categoriesAccess
   users: usersAccess
+  services: servicesAccess
   redirects: redirectsAccess
   payload_preferences: payload_preferencesAccess
   settings: settingsAccess
@@ -10453,6 +10959,7 @@ type categoriesAccess {
 
 type CategoriesFields {
   title: CategoriesFields_title
+  description: CategoriesFields_description
   media: CategoriesFields_media
   parent: CategoriesFields_parent
   breadcrumbs: CategoriesFields_breadcrumbs
@@ -10480,6 +10987,29 @@ type CategoriesFields_title_Update {
 }
 
 type CategoriesFields_title_Delete {
+  permission: Boolean!
+}
+
+type CategoriesFields_description {
+  create: CategoriesFields_description_Create
+  read: CategoriesFields_description_Read
+  update: CategoriesFields_description_Update
+  delete: CategoriesFields_description_Delete
+}
+
+type CategoriesFields_description_Create {
+  permission: Boolean!
+}
+
+type CategoriesFields_description_Read {
+  permission: Boolean!
+}
+
+type CategoriesFields_description_Update {
+  permission: Boolean!
+}
+
+type CategoriesFields_description_Delete {
   permission: Boolean!
 }
 
@@ -11095,6 +11625,181 @@ type UsersDeleteAccess {
 }
 
 type UsersUnlockAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type servicesAccess {
+  fields: ServicesFields
+  create: ServicesCreateAccess
+  read: ServicesReadAccess
+  update: ServicesUpdateAccess
+  delete: ServicesDeleteAccess
+}
+
+type ServicesFields {
+  title: ServicesFields_title
+  price: ServicesFields_price
+  description: ServicesFields_description
+  media: ServicesFields_media
+  updatedAt: ServicesFields_updatedAt
+  createdAt: ServicesFields_createdAt
+}
+
+type ServicesFields_title {
+  create: ServicesFields_title_Create
+  read: ServicesFields_title_Read
+  update: ServicesFields_title_Update
+  delete: ServicesFields_title_Delete
+}
+
+type ServicesFields_title_Create {
+  permission: Boolean!
+}
+
+type ServicesFields_title_Read {
+  permission: Boolean!
+}
+
+type ServicesFields_title_Update {
+  permission: Boolean!
+}
+
+type ServicesFields_title_Delete {
+  permission: Boolean!
+}
+
+type ServicesFields_price {
+  create: ServicesFields_price_Create
+  read: ServicesFields_price_Read
+  update: ServicesFields_price_Update
+  delete: ServicesFields_price_Delete
+}
+
+type ServicesFields_price_Create {
+  permission: Boolean!
+}
+
+type ServicesFields_price_Read {
+  permission: Boolean!
+}
+
+type ServicesFields_price_Update {
+  permission: Boolean!
+}
+
+type ServicesFields_price_Delete {
+  permission: Boolean!
+}
+
+type ServicesFields_description {
+  create: ServicesFields_description_Create
+  read: ServicesFields_description_Read
+  update: ServicesFields_description_Update
+  delete: ServicesFields_description_Delete
+}
+
+type ServicesFields_description_Create {
+  permission: Boolean!
+}
+
+type ServicesFields_description_Read {
+  permission: Boolean!
+}
+
+type ServicesFields_description_Update {
+  permission: Boolean!
+}
+
+type ServicesFields_description_Delete {
+  permission: Boolean!
+}
+
+type ServicesFields_media {
+  create: ServicesFields_media_Create
+  read: ServicesFields_media_Read
+  update: ServicesFields_media_Update
+  delete: ServicesFields_media_Delete
+}
+
+type ServicesFields_media_Create {
+  permission: Boolean!
+}
+
+type ServicesFields_media_Read {
+  permission: Boolean!
+}
+
+type ServicesFields_media_Update {
+  permission: Boolean!
+}
+
+type ServicesFields_media_Delete {
+  permission: Boolean!
+}
+
+type ServicesFields_updatedAt {
+  create: ServicesFields_updatedAt_Create
+  read: ServicesFields_updatedAt_Read
+  update: ServicesFields_updatedAt_Update
+  delete: ServicesFields_updatedAt_Delete
+}
+
+type ServicesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ServicesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ServicesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ServicesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ServicesFields_createdAt {
+  create: ServicesFields_createdAt_Create
+  read: ServicesFields_createdAt_Read
+  update: ServicesFields_createdAt_Update
+  delete: ServicesFields_createdAt_Delete
+}
+
+type ServicesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ServicesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ServicesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ServicesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ServicesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ServicesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ServicesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ServicesDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -12178,6 +12883,9 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
+  createService(data: mutationServiceInput!, draft: Boolean): Service
+  updateService(id: String!, autosave: Boolean, data: mutationServiceUpdateInput!, draft: Boolean): Service
+  deleteService(id: String!): Service
   createRedirect(data: mutationRedirectInput!, draft: Boolean): Redirect
   updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!, draft: Boolean): Redirect
   deleteRedirect(id: String!): Redirect
@@ -12447,6 +13155,7 @@ input mutationMediaUpdateInput {
 
 input mutationCategoryInput {
   title: String!
+  description: String!
   media: String
   parent: String
   breadcrumbs: [mutationCategory_BreadcrumbsInput]
@@ -12463,6 +13172,7 @@ input mutationCategory_BreadcrumbsInput {
 
 input mutationCategoryUpdateInput {
   title: String
+  description: String
   media: String
   parent: String
   breadcrumbs: [mutationCategoryUpdate_BreadcrumbsInput]
@@ -12565,6 +13275,24 @@ type usersLoginResult {
 type usersResetPassword {
   token: String
   user: User
+}
+
+input mutationServiceInput {
+  title: String!
+  price: String
+  description: JSON!
+  media: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationServiceUpdateInput {
+  title: String
+  price: String
+  description: JSON
+  media: String
+  updatedAt: String
+  createdAt: String
 }
 
 input mutationRedirectInput {

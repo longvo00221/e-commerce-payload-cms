@@ -28,6 +28,7 @@ import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
+import Services from './collections/Services'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Store'
@@ -92,7 +93,7 @@ export default buildConfig({
   }),
   // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Pages, Products, Orders, Media, Categories, Users],
+  collections: [Pages, Products, Orders, Media, Categories, Users,Services],
   globals: [Settings, Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

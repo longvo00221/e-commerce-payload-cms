@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 
-const Categories: CollectionConfig = {
-  slug: 'categories',
+const Services: CollectionConfig = {
+  slug: 'services',
   admin: {
     useAsTitle: 'title',
   },
@@ -13,9 +13,15 @@ const Categories: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
-    },{
-      name: 'description',
+    },
+    {
+      name: 'price',
       type: 'text',
+     
+    },
+    {
+      name: 'description',
+      type: 'richText',
       required: true,
       
     },
@@ -27,4 +33,4 @@ const Categories: CollectionConfig = {
   ],
 }
 
-export default Categories
+export default Services

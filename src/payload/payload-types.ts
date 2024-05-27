@@ -22,6 +22,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    services: Service;
     redirects: Redirect;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -181,8 +182,9 @@ export interface Media {
 export interface Category {
   id: string;
   title: string;
+  description: string;
   media?: string | Media | null;
-  parent?: (string | null) | Category;
+  parent?: (string | any) | Category;
   breadcrumbs?:
     | {
         doc?: (string | null) | Category;
@@ -434,6 +436,17 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+export interface Service {
+  id: string;
+  title: string;
+  price?: string | null;
+  description: {
+    [k: string]: unknown;
+  }[];
+  media?: string | Media | null;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Redirect {
   id: string;

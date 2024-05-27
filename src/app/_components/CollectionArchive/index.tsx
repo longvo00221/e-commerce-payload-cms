@@ -11,6 +11,7 @@ import { PageRange } from '../PageRange'
 import { Pagination } from '../Pagination'
 
 import classes from './index.module.scss'
+import Loader from '../Loading'
 
 type Result = {
   totalDocs: number
@@ -184,7 +185,7 @@ export const CollectionArchive: React.FC<Props> = props => {
             />
           )
         )}
-        {isLoading && <div>Loading more items...</div>}
+        {isLoading && <div><Loader/></div>}
       </Fragment>
     </div>
   )

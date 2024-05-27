@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .list {
@@ -18,7 +19,8 @@
   padding: 0;
   overflow: scroll;
   width:100%;
-
+  padding-top:20px;
+  padding-bottom:20px;
   @include small-break {
     display: grid;
     grid-template-columns: 1fr;

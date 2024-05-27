@@ -14,6 +14,10 @@ query Categories{
     docs{
       id 
       title
+      parent{
+        id
+        title
+      }
       media{
         alt
         width

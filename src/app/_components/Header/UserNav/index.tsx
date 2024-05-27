@@ -27,12 +27,13 @@ const UserNav: React.FC<UserNavProps> = ({ user }) => {
     }
 
     return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 md:w-auto w-full justify-end md:mt-0 mt-3 md:border-none border-t-slate-950">
             <Button variant="ghost" className="rounded-full p-[10px] max-w-[45px] max-h-[45px]" onClick={handleSetTheme}>
                 <Image src={themeIcon} alt="theme icon" width={25} height={25} />
             </Button>
             {user && <CartLink />}
-            {user && <Link href="/account">Account</Link>}
+            {user && <Link href="/account" className="rounded-full p-[10px] max-w-[45px] max-h-[45px] hover:bg-black/10">
+            <Image src="/assets/icons/user.svg" alt="theme icon" width={25} height={25} /></Link>}
             {!user && (
                 <Button onClick={()=> (window.location.href="/login")}>login</Button>
             )}

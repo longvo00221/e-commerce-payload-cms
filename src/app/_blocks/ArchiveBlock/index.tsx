@@ -39,7 +39,7 @@ export const ArchiveBlock: React.FC<
         showPageRange={false}
         categories={categories}
         limit={limit}
-        infiniteScroll={false}
+        infiniteScroll={true}
       />
     </div>
   )
