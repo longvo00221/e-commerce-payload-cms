@@ -25,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={monst.variable}>
         <Providers>
           <AdminBar />
+          
           {/* @ts-expect-error */}
           <Header />
           <main className='main'>{children}</main>

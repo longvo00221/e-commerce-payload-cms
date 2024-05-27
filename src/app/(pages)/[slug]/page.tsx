@@ -17,6 +17,8 @@ export const dynamic = 'force-dynamic'
 import classes from './index.module.scss'
 import Categories from '../../_components/Categories'
 import Promotion from '../../_components/Promotion'
+import Benefits from '../../_components/Benefitts'
+import ContactComponent from '../../_components/Contact'
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode()
 
@@ -51,12 +53,14 @@ export default async function Page({ params: { slug = 'home' } }) {
   return (
     <React.Fragment>
       {slug === 'home' ? (
-        <section>
+        <section className="relative">
+          <ContactComponent/>
           <Hero {...hero}/>
           <Gutter className={classes.home}>
             <Categories categories={categories}/>
             {/* <Services/> */}
             <Promotion/>
+            <Benefits/>
           </Gutter>
         </section>
       ) : (

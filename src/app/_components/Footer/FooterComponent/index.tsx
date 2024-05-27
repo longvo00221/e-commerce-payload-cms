@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import type { Footer, Media } from '../../../../payload/payload-types'
-import { inclusions, noHeaderFooterUrls } from '../../../constants';
+import {  noHeaderFooterUrls } from '../../../constants';
 import { usePathname } from 'next/navigation';
 import { Gutter } from '../../Gutter';
 import Image from 'next/image';
@@ -17,24 +17,11 @@ const FooterComponent: React.FC<FooterComponentProps> = ({ footer }) => {
     const navItems = footer?.navItems || []
     return (
         <footer className={noHeaderFooterUrls.includes(pathname) ? 'hidden md:mt-10 mt-5' : 'md:mt-[100px] mt-[50px]'}>
-            <Gutter>
-            <h3 className="font-semibold text-3xl">Why choose us ?</h3>
-                <ul className='grid justify-center gap-8 p-0 md:grid-cols-4 lg:grid-cols-2 sm:grid-cols-1 md:my-10 '>
-                   
-                    {inclusions.map((item, index) => (
-                        <li key={item.title}>
-                            <Image className='mb-4' src={item.icon} alt={item.title} width={36} height={36} loading='lazy' />
-                            <h5>{item.title}</h5>
-                            <p>{item.description}</p>
-                        </li>
-                    ))}
-                </ul>
-            </Gutter>
             <div className={classes.footer}>
                 <Gutter>
                     <div className={classes.wrap}>
                         <Link href="/">
-                            <Image src="/logo-white.svg" alt='logo' width={170} height={50} loading='lazy'/>
+                            <Image src="/footer-logo.png" alt='logo' width={100} height={30} loading='lazy'/>
                         </Link>
                         {/* if you want to add the additional data into footer or header there are 3 steps that you need to follow
                         first: modify global.ts in _graphql because this is the file where logic grapql use to query

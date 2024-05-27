@@ -10,7 +10,6 @@ const ServiceCategories:React.FC<ServiceCategoriesProps> = ({categories}) => {
     
     return (
         <section className="mt-10 mb-5">
-            <h2 className="font-bold text-2xl flex justify-center">Service Categories</h2>
             <ul>
                 {categories?.filter(category =>category.parent && category.parent?.title === 'services')?.map((category,index) => {
                     const isEven = index % 2 === 0;
