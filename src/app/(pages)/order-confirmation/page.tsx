@@ -9,7 +9,7 @@ import classes from './index.module.scss'
 
 export default async function OrderConfirmation() {
   return (
-    <Gutter className={classes.confirmationPage}>
+    <Gutter className="w-full h-[500px] flex items-center justify-center ">
       <Suspense fallback={<div>Loading...</div>}>
         <OrderConfirmationPage />
       </Suspense>

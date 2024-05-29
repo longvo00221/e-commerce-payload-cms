@@ -35,7 +35,6 @@ export default async function Product({ params: { slug } }) {
   }
 
   const { relatedProducts } = product
-
   return (
     <div className="md:py-12 py-8">
       <ProductHero product={product} />

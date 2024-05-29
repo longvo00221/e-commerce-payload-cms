@@ -70,7 +70,7 @@ const LoginForm: React.FC = () => {
         label={isLoading ? 'Processing' : 'Login'}
         disabled={isLoading}
         className={[classes.submit,'rounded-md'].join(' ')}
-      >Login</Button>
+      />
       <div className='flex flex-row md:flex-col items-center justify-center w-full'>
         <Link href={`/create-account${allParams}`}>Create an account</Link>
         <br />

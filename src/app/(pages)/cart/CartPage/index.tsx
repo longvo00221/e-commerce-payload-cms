@@ -15,6 +15,7 @@ import { useCart } from '../../../_providers/Cart'
 import CartItem from '../CartItem'
 
 import classes from './index.module.scss'
+import EmptyCart from '../../../_components/EmptyCart'
 
 export const CartPage: React.FC<{
   settings: Settings
@@ -26,7 +27,6 @@ export const CartPage: React.FC<{
   const { user } = useAuth()
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
-  console.log(cartTotal)
   return (
     <Fragment>
       <br />
@@ -38,7 +38,7 @@ export const CartPage: React.FC<{
         <Fragment>
           {cartIsEmpty ? (
             <div className={classes.empty}>
-              Your cart is empty.
+              <EmptyCart/>
               {typeof productsPage === 'object' && productsPage?.slug && (
                 <Fragment>
                   {' '}
@@ -65,7 +65,7 @@ export const CartPage: React.FC<{
                     <p></p>
                     <h3 className="font-bold text-lg">Quantity</h3>
                   </div>
-                  <h3 className={classes.headersubtotal}>Subtotal</h3>
+                  <h3 className={classes.headersubtotal}>Remove</h3>
                 </div>
                 {/* CART ITEM LIST */}
                 <ul className={classes.itemsList}>
@@ -98,7 +98,8 @@ export const CartPage: React.FC<{
 
               <div className={classes.summary}>
                 <div className={classes.row}>
-                  <h6 className={classes.cartTotal}>Summary</h6>
+                  <h6 className={classes.cartTotal}>Product in cart</h6>
+                  <h6 className={classes.cartTotal}>{cart.items.length}</h6>
                 </div>
 
                 <div className={classes.row}>
@@ -111,13 +112,22 @@ export const CartPage: React.FC<{
                   <p className={classes.cartTotal}>{cartTotal.formatted}</p>
                 </div>
 
+                <div className="flex gap-3 flex-col items-center justify-center">
                 <Button
-                  className={classes.checkoutButton}
+                  className="w-full"
                   href={user ? '/checkout' : '/login?redirect=%2Fcheckout'}
-                  label={user ? 'Checkout' : 'Login to checkout'}
+                  label={user ? 'Checkout stripe' : 'Login to checkout'}
                   appearance="primary"
                 
                 />
+                 <Button
+                  className="w-full"
+                  href={user ? '/normal-checkout' : '/login?redirect=%2Fcheckout'}
+                  label={user ? 'Checkout normal' : 'Login to checkout'}
+                  appearance="secondary"
+                
+                />
+                </div>
               </div>
             </div>
           )}

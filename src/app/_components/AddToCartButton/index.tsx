@@ -8,6 +8,7 @@ import { useCart } from '../../_providers/Cart'
 import { Button, Props } from '../Button'
 
 import classes from './index.module.scss'
+import { toast } from 'sonner'
 
 export const AddToCartButton: React.FC<{
   product: Product
@@ -16,6 +17,7 @@ export const AddToCartButton: React.FC<{
   appearance?: Props['appearance']
 }> = props => {
   const { product, quantity = 1, className, appearance = 'primary' } = props
+  console.log(product)
 
   const { cart, addItemToCart, isProductInCart, hasInitializedCart } = useCart()
 
@@ -25,7 +27,18 @@ export const AddToCartButton: React.FC<{
   useEffect(() => {
     setIsInCart(isProductInCart(product))
   }, [isProductInCart, product, cart])
-
+  const handleAddtoCart = () => {
+    try {
+      addItemToCart({
+        product,
+        quantity,
+      })
+      toast.success('Product added to cart!')
+      // router.push('/cart')
+    } catch (error) {
+      toast.error('Error adding product to cart')
+    }
+  }
   return (
     <Button
       href={isInCart ? '/cart' : undefined}
@@ -43,14 +56,7 @@ export const AddToCartButton: React.FC<{
         .join(' ')}
       onClick={
         !isInCart
-          ? () => {
-              addItemToCart({
-                product,
-                quantity,
-              })
-
-              router.push('/cart')
-            }
+          ? handleAddtoCart
           : undefined
       }
     />

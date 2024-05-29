@@ -45,6 +45,27 @@ export const Orders: CollectionConfig = {
       },
     },
     {
+      name: 'name',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'phone',
+      type: 'text',
+      required: true,
+    },
+    {
+      name:'state',
+      type:'text',
+      defaultValue:'pending',
+      required:false
+    },
+    {
+      name: 'address',
+      type: 'text',
+      required: true,
+    },
+    {
       name: 'total',
       type: 'number',
       required: true,

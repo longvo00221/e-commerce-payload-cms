@@ -404,6 +404,10 @@ export interface Order {
   id: string;
   orderedBy?: (string | null) | User;
   stripePaymentIntentID?: string | null;
+  name: string;
+  phone: string;
+  state?: string | null;
+  address: string;
   total: number;
   items?:
     | {

@@ -4,6 +4,9 @@ import { Product } from '../../../payload/payload-types'
 import { useCart } from '../../_providers/Cart'
 
 import classes from './index.module.scss'
+import Image from 'next/image'
+import { Button } from '../../components/ui/button'
+import { toast } from 'sonner'
 
 export const RemoveFromCartButton: React.FC<{
   className?: string
@@ -18,16 +21,23 @@ export const RemoveFromCartButton: React.FC<{
   if (!productIsInCart) {
     return <div>Item is not in the cart</div>
   }
+  const handleDeleteProductFromCart = () => {
+    try {
+      deleteItemFromCart(product)
+      toast.success('Product removed from cart')
+    } catch (error) {
+      toast.error('Error deleting product from cart')
+    }
+  }
 
   return (
-    <button
+    <Button
       type="button"
-      onClick={() => {
-        deleteItemFromCart(product)
-      }}
-      className={[className, classes.removeFromCartButton].filter(Boolean).join(' ')}
+      variant="ghost"
+      onClick={handleDeleteProductFromCart}
+      className="flex items-center justify-center p-3 hover:bg-black/10 rounded-md "
     >
-      Remove
-    </button>
+      <Image src="/assets/icons/trash.svg" alt="trash icon" width={25} height={25}/>
+    </Button>
   )
 }

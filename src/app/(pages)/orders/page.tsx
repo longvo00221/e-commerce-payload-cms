@@ -48,33 +48,34 @@ export default async function Orders() {
 
   return (
     <Gutter className={classes.orders}>
-      <h1>Orders</h1>
+      <h1 className="text-xl font-bold text-center my-5">Orders</h1>
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
         <p className={classes.noOrders}>You have no orders.</p>
       )}
       <RenderParams />
       {orders && orders.length > 0 && (
-        <ul className={classes.ordersList}>
+        <ul className="md:p-5 p-2 max-h-[500px] overflow-y-scroll list-none">
           {orders?.map((order, index) => (
             <li key={order.id} className={classes.listItem}>
-              <Link className={classes.item} href={`/orders/${order.id}`}>
+              <Link className={`${classes.item} md:flex-row flex-col`} href={`/orders/${order.id}`}>
                 <div className={classes.itemContent}>
-                  <h4 className={classes.itemTitle}>{`Order ${order.id}`}</h4>
+                  <h4 className={classes.itemTitle}>{`OrderID: ${order.id}`}</h4>
                   <div className={classes.itemMeta}>
                     <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
+                    <p>State: {order.state}</p>
                     <p>
                       {'Total: '}
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'usd',
-                      }).format(order.total / 100)}
+                      }).format(order.total)}
                     </p>
                   </div>
                 </div>
                 <Button
                   appearance="secondary"
                   label="View Order"
-                  className={classes.button}
+                  className="flex-shrink-0 md:w-auto w-[85%]"
                   el="button"
                 />
               </Link>
@@ -83,8 +84,9 @@ export default async function Orders() {
           ))}
         </ul>
       )}
-      <HR />
+      <div className="text-center mt-5 w-full flex items-center justify-center">
       <Button href="/account" appearance="primary" label="Go to account" />
+      </div>
     </Gutter>
   )
 }

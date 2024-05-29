@@ -13,8 +13,6 @@ import { formatDateTime } from '../../../_utilities/formatDateTime'
 import { getMeUser } from '../../../_utilities/getMeUser'
 import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph'
 
-import classes from './index.module.scss'
-
 export default async function Order({ params: { id } }) {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
@@ -46,87 +44,59 @@ export default async function Order({ params: { id } }) {
   }
 
   return (
-    <Gutter className={classes.orders}>
-      <h1>
-        {`Order`}
-        <span className={classes.id}>{`${order.id}`}</span>
+    <div className=" p-4">
+      <Gutter>
+      <h1 className="text-2xl font-bold mb-4">
+        Order Details
       </h1>
-      <div className={classes.itemMeta}>
-        <p>{`ID: ${order.id}`}</p>
-        <p>{`Payment Intent: ${order.stripePaymentIntentID}`}</p>
-        <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
-        <p className={classes.total}>
-          {'Total: '}
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'usd',
-          }).format(order.total / 100)}
+      <div className="bg-white shadow-md rounded-lg p-4 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <p className="text-lg"><strong>ID:</strong> {order.id}</p>
+        <p className="text-lg"><strong>Ordered On:</strong> {formatDateTime(order.createdAt)}</p>
+        <p className="text-lg"><strong>Name:</strong> {order.name}</p>
+        <p className="text-lg"><strong>State:</strong> {order.state}</p>    
+        <p className="text-lg"><strong>Address:</strong> {order.address}</p>
+        <p className="text-lg"><strong>Phone:</strong> {order.phone}</p>
+        <p className="text-lg font-bold">
+          Total: {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'usd' }).format(order.total)}
         </p>
       </div>
-      <HR />
-      <div className={classes.order}>
-        <h4 className={classes.orderItems}>Items</h4>
+      <hr className="my-4" />
+      <div className="bg-white shadow-md rounded-lg p-4 mb-6">
+        <h4 className="text-xl font-bold mb-4">Order Items</h4>
         {order.items?.map((item, index) => {
           if (typeof item.product === 'object') {
-            const {
-              quantity,
-              product,
-              product: { id, title, meta, stripeProductID },
-            } = item
-
+            const { quantity, product, product: { title, meta } } = item
             const isLast = index === (order?.items?.length || 0) - 1
-
             const metaImage = meta?.image
 
             return (
               <Fragment key={index}>
-                <div className={classes.row}>
-                  <Link href={`/products/${product.slug}`} className={classes.mediaWrapper}>
-                    {!metaImage && <span className={classes.placeholder}>No image</span>}
-                    {metaImage && typeof metaImage !== 'string' && (
-                      <Media
-                        className={classes.media}
-                        imgClassName={classes.image}
-                        resource={metaImage}
-                        fill
-                      />
-                    )}
+                <div className="flex items-center mb-4">
+                  <Link href={`/products/${product.slug}`} className="w-20 h-20 mr-4 flex-shrink-0 bg-gray-100 flex items-center justify-center">
+                    {!metaImage ? <span className="text-gray-500">No image</span> : <Media resource={metaImage} className="w-full h-full object-cover" />}
                   </Link>
-                  <div className={classes.rowContent}>
-                    {!stripeProductID && (
-                      <p className={classes.warning}>
-                        {'This product is not yet connected to Stripe. To link this product, '}
-                        <Link
-                          href={`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/collections/products/${id}`}
-                        >
-                          edit this product in the admin panel
-                        </Link>
-                        {'.'}
-                      </p>
-                    )}
-                    <h5 className={classes.title}>
-                      <Link href={`/products/${product.slug}`} className={classes.titleLink}>
-                        {title}
-                      </Link>
+                  <div className="flex-grow">
+                    <h5 className="text-lg font-bold">
+                      <Link href={`/products/${product.slug}`} className="text-blue-600 hover:underline">{title}</Link>
                     </h5>
-                    <p>{`Quantity: ${quantity}`}</p>
+                    <p className="text-gray-700">Quantity: {quantity}</p>
                     <Price product={product} button={false} quantity={quantity} />
                   </div>
                 </div>
-                {!isLast && <HR />}
+                {!isLast && <hr className="my-4" />}
               </Fragment>
             )
           }
-
           return null
         })}
       </div>
-      <HR />
-      <div className={classes.actions}>
+      <hr className="my-4" />
+      <div className="flex justify-between">
         <Button href="/orders" appearance="primary" label="See all orders" />
         <Button href="/account" appearance="secondary" label="Go to account" />
       </div>
-    </Gutter>
+      </Gutter>
+    </div>
   )
 }
 

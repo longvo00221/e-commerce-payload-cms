@@ -120,7 +120,7 @@ const CreateAccountForm: React.FC = () => {
         disabled={loading}
         appearance="primary"
         className={classes.submit}
-      >Create</Button>
+      />
       <div>
         {'Already have an account? '}
         <Link href={`/login${allParams}`}>Login</Link>

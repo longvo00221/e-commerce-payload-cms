@@ -4929,6 +4929,10 @@ type Order {
   id: String
   orderedBy: User
   stripePaymentIntentID: String
+  name: String!
+  phone: String!
+  state: String
+  address: String!
   total: Float!
   items: [Order_Items!]
   updatedAt: DateTime
@@ -4999,6 +5003,10 @@ type Orders {
 input Order_where {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
+  name: Order_name_operator
+  phone: Order_phone_operator
+  state: Order_state_operator
+  address: Order_address_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
@@ -5029,6 +5037,47 @@ input Order_stripePaymentIntentID_operator {
   not_in: [String]
   all: [String]
   exists: Boolean
+}
+
+input Order_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_phone_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_state_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_address_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Order_total_operator {
@@ -5115,6 +5164,10 @@ input Order_id_operator {
 input Order_where_and {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
+  name: Order_name_operator
+  phone: Order_phone_operator
+  state: Order_state_operator
+  address: Order_address_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
@@ -5130,6 +5183,10 @@ input Order_where_and {
 input Order_where_or {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
+  name: Order_name_operator
+  phone: Order_phone_operator
+  state: Order_state_operator
+  address: Order_address_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
@@ -5153,6 +5210,10 @@ type ordersDocAccess {
 type OrdersDocAccessFields {
   orderedBy: OrdersDocAccessFields_orderedBy
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
+  name: OrdersDocAccessFields_name
+  phone: OrdersDocAccessFields_phone
+  state: OrdersDocAccessFields_state
+  address: OrdersDocAccessFields_address
   total: OrdersDocAccessFields_total
   items: OrdersDocAccessFields_items
   updatedAt: OrdersDocAccessFields_updatedAt
@@ -5202,6 +5263,98 @@ type OrdersDocAccessFields_stripePaymentIntentID_Update {
 }
 
 type OrdersDocAccessFields_stripePaymentIntentID_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_name {
+  create: OrdersDocAccessFields_name_Create
+  read: OrdersDocAccessFields_name_Read
+  update: OrdersDocAccessFields_name_Update
+  delete: OrdersDocAccessFields_name_Delete
+}
+
+type OrdersDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phone {
+  create: OrdersDocAccessFields_phone_Create
+  read: OrdersDocAccessFields_phone_Read
+  update: OrdersDocAccessFields_phone_Update
+  delete: OrdersDocAccessFields_phone_Delete
+}
+
+type OrdersDocAccessFields_phone_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phone_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phone_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phone_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state {
+  create: OrdersDocAccessFields_state_Create
+  read: OrdersDocAccessFields_state_Read
+  update: OrdersDocAccessFields_state_Update
+  delete: OrdersDocAccessFields_state_Delete
+}
+
+type OrdersDocAccessFields_state_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address {
+  create: OrdersDocAccessFields_address_Create
+  read: OrdersDocAccessFields_address_Read
+  update: OrdersDocAccessFields_address_Update
+  delete: OrdersDocAccessFields_address_Delete
+}
+
+type OrdersDocAccessFields_address_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Delete {
   permission: Boolean!
 }
 
@@ -10414,6 +10567,10 @@ type ordersAccess {
 type OrdersFields {
   orderedBy: OrdersFields_orderedBy
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
+  name: OrdersFields_name
+  phone: OrdersFields_phone
+  state: OrdersFields_state
+  address: OrdersFields_address
   total: OrdersFields_total
   items: OrdersFields_items
   updatedAt: OrdersFields_updatedAt
@@ -10463,6 +10620,98 @@ type OrdersFields_stripePaymentIntentID_Update {
 }
 
 type OrdersFields_stripePaymentIntentID_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_name {
+  create: OrdersFields_name_Create
+  read: OrdersFields_name_Read
+  update: OrdersFields_name_Update
+  delete: OrdersFields_name_Delete
+}
+
+type OrdersFields_name_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_name_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_name_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_name_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_phone {
+  create: OrdersFields_phone_Create
+  read: OrdersFields_phone_Read
+  update: OrdersFields_phone_Update
+  delete: OrdersFields_phone_Delete
+}
+
+type OrdersFields_phone_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_phone_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_phone_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_phone_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_state {
+  create: OrdersFields_state_Create
+  read: OrdersFields_state_Read
+  update: OrdersFields_state_Update
+  delete: OrdersFields_state_Delete
+}
+
+type OrdersFields_state_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_state_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_state_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_state_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address {
+  create: OrdersFields_address_Create
+  read: OrdersFields_address_Read
+  update: OrdersFields_address_Update
+  delete: OrdersFields_address_Delete
+}
+
+type OrdersFields_address_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Delete {
   permission: Boolean!
 }
 
@@ -13098,6 +13347,10 @@ enum ProductUpdate__status_MutationInput {
 input mutationOrderInput {
   orderedBy: String
   stripePaymentIntentID: String
+  name: String!
+  phone: String!
+  state: String
+  address: String!
   total: Float!
   items: [mutationOrder_ItemsInput]
   updatedAt: String
@@ -13114,6 +13367,10 @@ input mutationOrder_ItemsInput {
 input mutationOrderUpdateInput {
   orderedBy: String
   stripePaymentIntentID: String
+  name: String
+  phone: String
+  state: String
+  address: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
   updatedAt: String
