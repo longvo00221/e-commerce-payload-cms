@@ -8,6 +8,7 @@ import { useCart } from '../../_providers/Cart';
 import Link from 'next/link';
 import EmptyCart from '../../_components/EmptyCart';
 import { LoadingShimmer } from '../../_components/LoadingShimmer';
+import { Metadata } from 'next';
 
 const Checkout = () => {
     const { user } = useAuth()
@@ -55,3 +56,13 @@ const Checkout = () => {
     )
 }
 export default Checkout
+
+
+export const metadata:Metadata = {
+  title:'Checkout',
+  description:'Checkout',
+  openGraph: {
+    title: 'Checkout',
+    url: '/checkout',
+  },
+}

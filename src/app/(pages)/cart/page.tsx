@@ -14,9 +14,6 @@ import { generateMeta } from '../../_utilities/generateMeta'
 import { CartPage } from './CartPage'
 
 import classes from './index.module.scss'
-
-// Force this page to be dynamic so that Next.js does not cache it
-// See the note in '../[slug]/page.tsx' about this
 export const dynamic = 'force-dynamic'
 
 export default async function Cart() {
@@ -28,15 +25,9 @@ export default async function Cart() {
       slug: 'cart',
     })
   } catch (error) {
-    // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // so swallow the error here and simply render the page with fallback data where necessary
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
-    // console.error(error)
+    console.log(error)
   }
 
-  // if no `cart` page exists, render a static one using dummy content
-  // you should delete this code once you have a cart page in the CMS
-  // this is really only useful for those who are demoing this template
   if (!page) {
     page = staticCart
   }
@@ -50,10 +41,7 @@ export default async function Cart() {
   try {
     settings = await fetchSettings()
   } catch (error) {
-    // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // so swallow the error here and simply render the page with fallback data where necessary
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
-    // console.error(error)
+
   }
 
   return (
@@ -75,10 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
       slug: 'cart',
     })
   } catch (error) {
-    // don't throw an error if the fetch fails
-    // this is so that we can render a static cart page for the demo
-    // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
+    console.log(error)
   }
 
   if (!page) {
@@ -87,3 +72,4 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return generateMeta({ doc: page })
 }
+

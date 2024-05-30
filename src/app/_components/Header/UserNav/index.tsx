@@ -31,7 +31,7 @@ const UserNav: React.FC<UserNavProps> = ({ user }) => {
             <Button variant="ghost" className="rounded-full p-[10px] max-w-[45px] max-h-[45px]" onClick={handleSetTheme}>
                 <Image src={themeIcon} alt="theme icon" width={25} height={25} />
             </Button>
-            {user && <CartLink />}
+            <CartLink />
             {user && <Link href="/account" className="rounded-full p-[10px] max-w-[45px] max-h-[45px] hover:bg-black/10">
             <Image src="/assets/icons/user.svg" alt="theme icon" width={25} height={25} /></Link>}
             {!user && (

@@ -10,6 +10,7 @@ import { HR } from '../../_components/HR'
 import Filters from './Filters'
 
 import classes from './index.module.scss'
+import { Metadata } from 'next'
 
 const Products = async () => {
   const { isEnabled: isDraftMode } = draftMode()
@@ -41,3 +42,11 @@ const Products = async () => {
 }
 
 export default Products
+export const metadata: Metadata = {
+  title: 'Products',
+  description: 'All product categories',
+  openGraph: {
+    title: 'Products',
+    url: '/products',
+  },
+}
