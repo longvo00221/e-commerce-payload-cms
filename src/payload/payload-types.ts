@@ -23,6 +23,7 @@ export interface Config {
     categories: Category;
     users: User;
     services: Service;
+    dashboard: Dashboard;
     redirects: Redirect;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -406,7 +407,7 @@ export interface Order {
   stripePaymentIntentID?: string | null;
   name: string;
   phone: string;
-  state?: string | null;
+  state?: ('pending' | 'completed' | 'cancelled') | null;
   address: string;
   total: number;
   items?:
@@ -449,6 +450,12 @@ export interface Service {
     [k: string]: unknown;
   }[];
   media?: string | Media | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Dashboard {
+  id: string;
+  dummyField?: string | null;
   updatedAt: string;
   createdAt: string;
 }

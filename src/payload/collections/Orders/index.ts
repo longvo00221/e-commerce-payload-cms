@@ -11,8 +11,8 @@ import { LinkToPaymentIntent } from './ui/LinkToPaymentIntent'
 export const Orders: CollectionConfig = {
   slug: 'orders',
   admin: {
-    useAsTitle: 'createdAt',
-    defaultColumns: ['createdAt', 'orderedBy'],
+    useAsTitle: 'ID',
+    defaultColumns: [ 'name', 'phone', 'state','createdAt', 'orderedBy'],
     preview: doc => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/orders/${doc.id}`,
   },
   hooks: {
@@ -56,9 +56,23 @@ export const Orders: CollectionConfig = {
     },
     {
       name:'state',
-      type:'text',
+      type:'select',
       defaultValue:'pending',
-      required:false
+      required:false,
+      options: [
+        {
+          label: 'Pending',
+          value: 'pending',
+        },
+        {
+          label: 'Completed',
+          value: 'completed',
+        },
+        {
+          label: 'Cancelled',
+          value: 'cancelled',
+        },
+      ],
     },
     {
       name: 'address',

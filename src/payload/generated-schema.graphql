@@ -26,6 +26,9 @@ type Query {
   Service(id: String!, draft: Boolean): Service
   Services(draft: Boolean, where: Service_where, limit: Int, page: Int, sort: String): Services
   docAccessService(id: String!): servicesDocAccess
+  Dashboard(id: String!, draft: Boolean): Dashboard
+  Dashboards(draft: Boolean, where: Dashboard_where, limit: Int, page: Int, sort: String): Dashboards
+  docAccessDashboard(id: String!): dashboardDocAccess
   Redirect(id: String!, draft: Boolean): Redirect
   Redirects(draft: Boolean, where: Redirect_where, limit: Int, page: Int, sort: String): Redirects
   docAccessRedirect(id: String!): redirectsDocAccess
@@ -4931,7 +4934,7 @@ type Order {
   stripePaymentIntentID: String
   name: String!
   phone: String!
-  state: String
+  state: Order_state
   address: String!
   total: Float!
   items: [Order_Items!]
@@ -4978,6 +4981,12 @@ type CartItems {
 A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
 """
 scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+enum Order_state {
+  pending
+  completed
+  cancelled
+}
 
 type Order_Items {
   product: Product
@@ -5060,14 +5069,18 @@ input Order_phone_operator {
 }
 
 input Order_state_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
+  equals: Order_state_Input
+  not_equals: Order_state_Input
+  in: [Order_state_Input]
+  not_in: [Order_state_Input]
+  all: [Order_state_Input]
   exists: Boolean
+}
+
+enum Order_state_Input {
+  pending
+  completed
+  cancelled
 }
 
 input Order_address_operator {
@@ -7529,6 +7542,201 @@ type ServicesDeleteDocAccess {
   where: JSONObject
 }
 
+type Dashboard {
+  id: String
+  dummyField: String
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Dashboards {
+  docs: [Dashboard]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Dashboard_where {
+  dummyField: Dashboard_dummyField_operator
+  updatedAt: Dashboard_updatedAt_operator
+  createdAt: Dashboard_createdAt_operator
+  id: Dashboard_id_operator
+  AND: [Dashboard_where_and]
+  OR: [Dashboard_where_or]
+}
+
+input Dashboard_dummyField_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dashboard_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dashboard_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dashboard_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dashboard_where_and {
+  dummyField: Dashboard_dummyField_operator
+  updatedAt: Dashboard_updatedAt_operator
+  createdAt: Dashboard_createdAt_operator
+  id: Dashboard_id_operator
+  AND: [Dashboard_where_and]
+  OR: [Dashboard_where_or]
+}
+
+input Dashboard_where_or {
+  dummyField: Dashboard_dummyField_operator
+  updatedAt: Dashboard_updatedAt_operator
+  createdAt: Dashboard_createdAt_operator
+  id: Dashboard_id_operator
+  AND: [Dashboard_where_and]
+  OR: [Dashboard_where_or]
+}
+
+type dashboardDocAccess {
+  fields: DashboardDocAccessFields
+  create: DashboardCreateDocAccess
+  read: DashboardReadDocAccess
+  update: DashboardUpdateDocAccess
+  delete: DashboardDeleteDocAccess
+}
+
+type DashboardDocAccessFields {
+  dummyField: DashboardDocAccessFields_dummyField
+  updatedAt: DashboardDocAccessFields_updatedAt
+  createdAt: DashboardDocAccessFields_createdAt
+}
+
+type DashboardDocAccessFields_dummyField {
+  create: DashboardDocAccessFields_dummyField_Create
+  read: DashboardDocAccessFields_dummyField_Read
+  update: DashboardDocAccessFields_dummyField_Update
+  delete: DashboardDocAccessFields_dummyField_Delete
+}
+
+type DashboardDocAccessFields_dummyField_Create {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_dummyField_Read {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_dummyField_Update {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_dummyField_Delete {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_updatedAt {
+  create: DashboardDocAccessFields_updatedAt_Create
+  read: DashboardDocAccessFields_updatedAt_Read
+  update: DashboardDocAccessFields_updatedAt_Update
+  delete: DashboardDocAccessFields_updatedAt_Delete
+}
+
+type DashboardDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_createdAt {
+  create: DashboardDocAccessFields_createdAt_Create
+  read: DashboardDocAccessFields_createdAt_Read
+  update: DashboardDocAccessFields_createdAt_Update
+  delete: DashboardDocAccessFields_createdAt_Delete
+}
+
+type DashboardDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DashboardDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DashboardCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DashboardReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DashboardUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DashboardDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Redirect {
   id: String
   from: String!
@@ -9279,6 +9487,7 @@ type Access {
   categories: categoriesAccess
   users: usersAccess
   services: servicesAccess
+  dashboard: dashboardAccess
   redirects: redirectsAccess
   payload_preferences: payload_preferencesAccess
   settings: settingsAccess
@@ -12053,6 +12262,109 @@ type ServicesDeleteAccess {
   where: JSONObject
 }
 
+type dashboardAccess {
+  fields: DashboardFields
+  create: DashboardCreateAccess
+  read: DashboardReadAccess
+  update: DashboardUpdateAccess
+  delete: DashboardDeleteAccess
+}
+
+type DashboardFields {
+  dummyField: DashboardFields_dummyField
+  updatedAt: DashboardFields_updatedAt
+  createdAt: DashboardFields_createdAt
+}
+
+type DashboardFields_dummyField {
+  create: DashboardFields_dummyField_Create
+  read: DashboardFields_dummyField_Read
+  update: DashboardFields_dummyField_Update
+  delete: DashboardFields_dummyField_Delete
+}
+
+type DashboardFields_dummyField_Create {
+  permission: Boolean!
+}
+
+type DashboardFields_dummyField_Read {
+  permission: Boolean!
+}
+
+type DashboardFields_dummyField_Update {
+  permission: Boolean!
+}
+
+type DashboardFields_dummyField_Delete {
+  permission: Boolean!
+}
+
+type DashboardFields_updatedAt {
+  create: DashboardFields_updatedAt_Create
+  read: DashboardFields_updatedAt_Read
+  update: DashboardFields_updatedAt_Update
+  delete: DashboardFields_updatedAt_Delete
+}
+
+type DashboardFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DashboardFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DashboardFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DashboardFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DashboardFields_createdAt {
+  create: DashboardFields_createdAt_Create
+  read: DashboardFields_createdAt_Read
+  update: DashboardFields_createdAt_Update
+  delete: DashboardFields_createdAt_Delete
+}
+
+type DashboardFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DashboardFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DashboardFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DashboardFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DashboardCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DashboardReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DashboardUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DashboardDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type redirectsAccess {
   fields: RedirectsFields
   create: RedirectsCreateAccess
@@ -13135,6 +13447,9 @@ type Mutation {
   createService(data: mutationServiceInput!, draft: Boolean): Service
   updateService(id: String!, autosave: Boolean, data: mutationServiceUpdateInput!, draft: Boolean): Service
   deleteService(id: String!): Service
+  createDashboard(data: mutationDashboardInput!, draft: Boolean): Dashboard
+  updateDashboard(id: String!, autosave: Boolean, data: mutationDashboardUpdateInput!, draft: Boolean): Dashboard
+  deleteDashboard(id: String!): Dashboard
   createRedirect(data: mutationRedirectInput!, draft: Boolean): Redirect
   updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!, draft: Boolean): Redirect
   deleteRedirect(id: String!): Redirect
@@ -13349,12 +13664,18 @@ input mutationOrderInput {
   stripePaymentIntentID: String
   name: String!
   phone: String!
-  state: String
+  state: Order_state_MutationInput
   address: String!
   total: Float!
   items: [mutationOrder_ItemsInput]
   updatedAt: String
   createdAt: String
+}
+
+enum Order_state_MutationInput {
+  pending
+  completed
+  cancelled
 }
 
 input mutationOrder_ItemsInput {
@@ -13369,12 +13690,18 @@ input mutationOrderUpdateInput {
   stripePaymentIntentID: String
   name: String
   phone: String
-  state: String
+  state: OrderUpdate_state_MutationInput
   address: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
   updatedAt: String
   createdAt: String
+}
+
+enum OrderUpdate_state_MutationInput {
+  pending
+  completed
+  cancelled
 }
 
 input mutationOrderUpdate_ItemsInput {
@@ -13548,6 +13875,18 @@ input mutationServiceUpdateInput {
   price: String
   description: JSON
   media: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationDashboardInput {
+  dummyField: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationDashboardUpdateInput {
+  dummyField: String
   updatedAt: String
   createdAt: String
 }

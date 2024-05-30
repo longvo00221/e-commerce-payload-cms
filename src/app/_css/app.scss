@@ -52,7 +52,9 @@ body {
   display: flex;
   flex-flow: column;
 }
-
+.table{
+  display: block !important;
+}
 .main {
   flex: 1 1 auto;
 }
