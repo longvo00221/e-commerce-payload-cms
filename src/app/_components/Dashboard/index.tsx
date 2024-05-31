@@ -14,12 +14,12 @@ const Dashboard = () => {
         const [productsResponse, ordersResponse] = await Promise.all([
           fetch('http://localhost:3000/api/products').then((res) => res.json()),
           fetch('http://localhost:3000/api/orders').then((res) => res.json()),
-        ])
+        ]);
         let totalRev = 0;
         let pendingCount = 0;
         let completedCount = 0;
         const monthlyRev = new Array(12).fill(0);
-        console.log(ordersResponse)
+        console.log(ordersResponse);
         ordersResponse.docs.forEach((order) => {
           if (order.state === 'completed') {
             totalRev += order.total;
@@ -35,7 +35,14 @@ const Dashboard = () => {
         setProductsInStock(productsResponse.totalDocs);
         setPendingInvoices(pendingCount);
         setCompletedInvoices(completedCount);
-        setMonthlyRevenue(monthlyRev);
+        
+        // Transform monthlyRev array to the expected format
+        const formattedMonthlyRev = monthlyRev.map((revenue, index) => ({
+          month: index + 1,
+          revenue,
+        }));
+        
+        setMonthlyRevenue(formattedMonthlyRev);
 
       } catch (error) {
         console.log(error);

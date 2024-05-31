@@ -6,6 +6,7 @@ interface MonthlyRevenueChartProps {
 }
 
 const MonthlyRevenueChart: React.FC<MonthlyRevenueChartProps> = ({ data }) => {
+  console.log(data);
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={data}>
