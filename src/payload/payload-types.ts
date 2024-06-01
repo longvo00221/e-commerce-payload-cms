@@ -390,6 +390,20 @@ export interface Product {
   relatedProducts?: (string | Product)[] | null;
   color: string;
   price?: string | null;
+  details?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
+  specification:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   slug?: string | null;
   skipSync?: boolean | null;
   meta?: {

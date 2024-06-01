@@ -28,6 +28,8 @@ export const PRODUCT = `
         }
         price,
         color,
+        details,
+        specification
         priceJSON
         enablePaywall
         relatedProducts {

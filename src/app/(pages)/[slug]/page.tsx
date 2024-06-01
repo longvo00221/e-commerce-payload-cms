@@ -19,6 +19,7 @@ import Categories from '../../_components/Categories'
 import Promotion from '../../_components/Promotion'
 import Benefits from '../../_components/Benefitts'
 import ContactComponent from '../../_components/Contact'
+import MailContact from '../../_components/MailContact'
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode()
 
@@ -61,6 +62,7 @@ export default async function Page({ params: { slug = 'home' } }) {
             {/* <Services/> */}
             <Promotion/>
             <Benefits/>
+            <MailContact />
           </Gutter>
         </section>
       ) : (

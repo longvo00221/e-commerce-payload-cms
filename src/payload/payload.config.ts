@@ -47,11 +47,7 @@ export default buildConfig({
     bundler: webpackBundler(), // bundler-config
     css: path.resolve(__dirname, '../../tailwind.css'),
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
       beforeLogin: [BeforeLogin],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: [BeforeDashboard],
     },
     webpack: config => {
@@ -73,8 +69,7 @@ export default buildConfig({
             ...config.resolve?.alias,
             dotenv: path.resolve(__dirname, './dotenv.js'),
             [path.resolve(__dirname, 'collections/Products/hooks/beforeChange')]: mockModulePath,
-            [path.resolve(__dirname, 'collections/Users/hooks/createStripeCustomer')]:
-              mockModulePath,
+            [path.resolve(__dirname, 'collections/Users/hooks/createStripeCustomer')]: mockModulePath,
             [path.resolve(__dirname, 'collections/Users/endpoints/customer')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/create-payment-intent')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/customers')]: mockModulePath,
@@ -84,17 +79,15 @@ export default buildConfig({
             express: mockModulePath,
           },
         },
-      }
+      };
     },
   },
   editor: slateEditor({}), // editor-config
-  // database-adapter-config-start
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
-  // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Pages, Products, Orders, Media, Categories, Users,Services,DashboardConfig],
+  collections: [Pages, Products, Orders, Media, Categories, Users, Services, DashboardConfig],
   globals: [Settings, Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
@@ -102,12 +95,8 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
-    Boolean,
-  ),
-  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
-    Boolean,
-  ),
+  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
+  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
     {
       path: '/create-payment-intent',
@@ -124,8 +113,6 @@ export default buildConfig({
       method: 'get',
       handler: productsProxy,
     },
-    // The seed endpoint is used to populate the database with some example data
-    // You should delete this endpoint before deploying your site to production
     {
       path: '/seed',
       method: 'get',
@@ -156,5 +143,6 @@ export default buildConfig({
       uploadsCollection: 'media',
     }),
     payloadCloud(),
+  
   ],
-})
+});

@@ -1,26 +1,30 @@
 'use client'
 import { useEffect, useState } from 'react';
+import { Blocks } from '../../_components/Blocks';
 
-const PreviewPage = () => {
+const PagePreview = () => {
   const [page, setPage] = useState(null);
-
+  console.log(page)
   useEffect(() => {
-    const handleMessage = (event) => {
+    const listener = (event) => {
       if (event.data.cmsLivePreviewData) {
+        console.log(event.data.cmsLivePreviewData)
         setPage(event.data.cmsLivePreviewData);
       }
     };
 
-    window.addEventListener('message', handleMessage);
+    window.addEventListener('message', listener, false);
 
     return () => {
-      window.removeEventListener('message', handleMessage);
+      window.removeEventListener('message', listener);
     };
   }, []);
 
-  if (!page) {
-    return <div>Loading preview...</div>;
-  }
+  useEffect(() => {
+    (opener ?? parent).postMessage('ready', '*');
+  }, []);
+
+  if (!page) return <div>Loading...</div>;
 
   return (
     <div>
@@ -28,10 +32,10 @@ const PreviewPage = () => {
         <h1>{page.title}</h1>
       </header>
       <main>
-        <div>{/* Render page content here */}</div>
+        <Blocks blocks={page.content} />
       </main>
     </div>
   );
 };
 
-export default PreviewPage;
+export default PagePreview;

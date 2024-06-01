@@ -1286,6 +1286,8 @@ type Product {
   relatedProducts: [Product!]
   color: String
   price: String
+  details(depth: Int): JSON
+  specification: JSON
   slug: String
   skipSync: Boolean
   meta: Product_Meta
@@ -3614,6 +3616,8 @@ input Product_where {
   relatedProducts: Product_relatedProducts_operator
   color: Product_color_operator
   price: Product_price_operator
+  details: Product_details_operator
+  specification: Product_specification_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
   meta__title: Product_meta__title_operator
@@ -3710,6 +3714,23 @@ input Product_price_operator {
   not_in: [String]
   all: [String]
   exists: Boolean
+}
+
+input Product_details_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input Product_specification_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  within: JSON
+  intersects: JSON
 }
 
 input Product_slug_operator {
@@ -3811,6 +3832,8 @@ input Product_where_and {
   relatedProducts: Product_relatedProducts_operator
   color: Product_color_operator
   price: Product_price_operator
+  details: Product_details_operator
+  specification: Product_specification_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
   meta__title: Product_meta__title_operator
@@ -3834,6 +3857,8 @@ input Product_where_or {
   relatedProducts: Product_relatedProducts_operator
   color: Product_color_operator
   price: Product_price_operator
+  details: Product_details_operator
+  specification: Product_specification_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
   meta__title: Product_meta__title_operator
@@ -3868,6 +3893,8 @@ type ProductsDocAccessFields {
   relatedProducts: ProductsDocAccessFields_relatedProducts
   color: ProductsDocAccessFields_color
   price: ProductsDocAccessFields_price
+  details: ProductsDocAccessFields_details
+  specification: ProductsDocAccessFields_specification
   slug: ProductsDocAccessFields_slug
   skipSync: ProductsDocAccessFields_skipSync
   meta: ProductsDocAccessFields_meta
@@ -4126,6 +4153,52 @@ type ProductsDocAccessFields_price_Update {
 }
 
 type ProductsDocAccessFields_price_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_details {
+  create: ProductsDocAccessFields_details_Create
+  read: ProductsDocAccessFields_details_Read
+  update: ProductsDocAccessFields_details_Update
+  delete: ProductsDocAccessFields_details_Delete
+}
+
+type ProductsDocAccessFields_details_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_details_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_details_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_details_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_specification {
+  create: ProductsDocAccessFields_specification_Create
+  read: ProductsDocAccessFields_specification_Read
+  update: ProductsDocAccessFields_specification_Update
+  delete: ProductsDocAccessFields_specification_Delete
+}
+
+type ProductsDocAccessFields_specification_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_specification_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_specification_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_specification_Delete {
   permission: Boolean!
 }
 
@@ -4437,6 +4510,8 @@ type ProductVersion_Version {
   relatedProducts: [Product!]
   color: String
   price: String
+  details(depth: Int): JSON
+  specification: JSON
   slug: String
   skipSync: Boolean
   meta: ProductVersion_Version_Meta
@@ -4647,6 +4722,8 @@ input versionsProduct_where {
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__color: versionsProduct_version__color_operator
   version__price: versionsProduct_version__price_operator
+  version__details: versionsProduct_version__details_operator
+  version__specification: versionsProduct_version__specification_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
   version__meta__title: versionsProduct_version__meta__title_operator
@@ -4755,6 +4832,23 @@ input versionsProduct_version__price_operator {
   not_in: [String]
   all: [String]
   exists: Boolean
+}
+
+input versionsProduct_version__details_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input versionsProduct_version__specification_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  within: JSON
+  intersects: JSON
 }
 
 input versionsProduct_version__slug_operator {
@@ -4885,6 +4979,8 @@ input versionsProduct_where_and {
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__color: versionsProduct_version__color_operator
   version__price: versionsProduct_version__price_operator
+  version__details: versionsProduct_version__details_operator
+  version__specification: versionsProduct_version__specification_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
   version__meta__title: versionsProduct_version__meta__title_operator
@@ -4912,6 +5008,8 @@ input versionsProduct_where_or {
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__color: versionsProduct_version__color_operator
   version__price: versionsProduct_version__price_operator
+  version__details: versionsProduct_version__details_operator
+  version__specification: versionsProduct_version__specification_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
   version__meta__title: versionsProduct_version__meta__title_operator
@@ -10217,6 +10315,8 @@ type ProductsFields {
   relatedProducts: ProductsFields_relatedProducts
   color: ProductsFields_color
   price: ProductsFields_price
+  details: ProductsFields_details
+  specification: ProductsFields_specification
   slug: ProductsFields_slug
   skipSync: ProductsFields_skipSync
   meta: ProductsFields_meta
@@ -10475,6 +10575,52 @@ type ProductsFields_price_Update {
 }
 
 type ProductsFields_price_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_details {
+  create: ProductsFields_details_Create
+  read: ProductsFields_details_Read
+  update: ProductsFields_details_Update
+  delete: ProductsFields_details_Delete
+}
+
+type ProductsFields_details_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_details_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_details_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_details_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_specification {
+  create: ProductsFields_specification_Create
+  read: ProductsFields_specification_Read
+  update: ProductsFields_specification_Update
+  delete: ProductsFields_specification_Delete
+}
+
+type ProductsFields_specification_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_specification_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_specification_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_specification_Delete {
   permission: Boolean!
 }
 
@@ -13609,6 +13755,8 @@ input mutationProductInput {
   relatedProducts: [String]
   color: String!
   price: String
+  details: JSON
+  specification: JSON!
   slug: String
   skipSync: Boolean
   meta: mutationProduct_MetaInput
@@ -13640,6 +13788,8 @@ input mutationProductUpdateInput {
   relatedProducts: [String]
   color: String
   price: String
+  details: JSON
+  specification: JSON
   slug: String
   skipSync: Boolean
   meta: mutationProductUpdate_MetaInput

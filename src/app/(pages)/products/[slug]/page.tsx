@@ -10,6 +10,7 @@ import { Blocks } from '../../../_components/Blocks'
 import { PaywallBlocks } from '../../../_components/PaywallBlocks'
 import { ProductHero } from '../../../_heros/Product'
 import { generateMeta } from '../../../_utilities/generateMeta'
+import ProductDetails from '../../../_components/ProductDetails'
 
 // Force this page to be dynamic so that Next.js does not cache it
 // See the note in '../../../[slug]/page.tsx' about this
@@ -33,8 +34,7 @@ export default async function Product({ params: { slug } }) {
   if (!product) {
     notFound()
   }
-
-  const { relatedProducts } = product
+  const { relatedProducts,details,specification } = product
   return (
     <div className="md:py-12 py-8">
       <ProductHero product={product} />
@@ -60,6 +60,7 @@ export default async function Product({ params: { slug } }) {
           },
         ]}
       />
+      <ProductDetails details={details} specification={specification}/>
     </div>
   )
 }
