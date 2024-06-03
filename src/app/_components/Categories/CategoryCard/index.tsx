@@ -6,14 +6,15 @@ import { useFilter } from '../../../_providers/Filter';
 import Link from 'next/link';
 type CategoryCardProps = {
     category: Category
-    key?:number
+   isServices?:Boolean
 };
 
-const CategoryCard:React.FC<CategoryCardProps> = ({category,key}) => {
+const CategoryCard:React.FC<CategoryCardProps> = ({category,isServices}) => {
     const media = category.media as Media
     const { setCategoryFilters } = useFilter()
+    const navigateRoute = !isServices ? "/products" : "/services"
     return (
-        <Link href="/products" className={classes.card} style={{ backgroundImage: `url(${media.url})` }}
+        <Link href={`${navigateRoute}`} className={classes.card} style={{ backgroundImage: `url(${media.url})` }}
         onClick={()=>setCategoryFilters([category.id])}>
             <p className={classes.title}>{category.title}</p>
         </Link>

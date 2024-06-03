@@ -7,7 +7,7 @@ import { Blocks } from '../../_components/Blocks';
 import { Hero } from '../../_components/Hero';
 import { fetchDocs } from '../../_api/fetchDocs';
 import ServiceCategories from '../../_components/ServiceCategories';
-
+import { Metadata } from 'next'
 
 const Services = async () => {
     const { isEnabled: isDraftMode } = draftMode()
@@ -34,3 +34,11 @@ const Services = async () => {
     )
 }
 export default Services;
+export const metadata: Metadata = {
+    title: 'Services',
+    description: 'All services categories',
+    openGraph: {
+      title: 'Services',
+      url: '/services',
+    },
+  }

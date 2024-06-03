@@ -24,7 +24,7 @@ const Categories: React.FC<CategoriesProps> = ({ categories }) => {
             </div>
             <div className={classes.list}>
                 {storeCategories.map((category: Category, index) => (
-                    <CategoryCard key={index} category={category} />
+                    <CategoryCard key={category.id} category={category} />
                 ))}
             </div>
             </section>
@@ -35,7 +35,7 @@ const Categories: React.FC<CategoriesProps> = ({ categories }) => {
                 </div>
                 <div className={classes.list}>
                     {serviceCategories.map((category: Category, index) => (
-                        <CategoryCard key={index} category={category} />
+                        <CategoryCard key={category.id} category={category} isServices={category.parent?.title === 'services'}/>
                     ))}
                 </div>
             </section>
