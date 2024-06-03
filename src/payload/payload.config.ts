@@ -145,4 +145,25 @@ export default buildConfig({
     payloadCloud(),
   
   ],
+  i18n: {
+    fallbackLng: 'en',
+    resources: {
+      en: {
+        custom: {
+          key1: 'Translation with {{variable}}',
+        },
+        general: {
+          dashboard: 'Home',
+        },
+      },
+      vi: {
+        custom: {
+          key1: 'Dịch với {{variable}}',
+        },
+        general: {
+          dashboard: 'Trang chủ',
+        },
+      },
+    },
+  },
 });

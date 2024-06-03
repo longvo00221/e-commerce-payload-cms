@@ -528,6 +528,8 @@ export interface Header {
   id: string;
   navItems?:
     | {
+        url: Url;
+        label: ReactNode;
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;

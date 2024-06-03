@@ -18,7 +18,7 @@ export async function Header() {
   }
 
   return (
-    <div className='w-full sticky top-0 dark:bg-black bg-white drop-shadow-md z-[999] py-5'>
+    <div className='w-full fixed top-0 dark:bg-black bg-white drop-shadow-md z-[999] py-5'>
       <HeaderComponent header={header} />
     </div>
   )
