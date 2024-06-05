@@ -31,7 +31,7 @@ export const LogoutPage: React.FC<{
   return (
     <Fragment>
       {(error || success) && (
-        <div>
+        <div className="mt-[200px]">
           <h1>{error || success}</h1>
           <p>
             {'What would you like to do next?'}

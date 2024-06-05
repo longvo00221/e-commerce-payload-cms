@@ -57,12 +57,3 @@ const Checkout = () => {
 }
 export default Checkout
 
-
-export const metadata:Metadata = {
-  title:'Checkout',
-  description:'Checkout',
-  openGraph: {
-    title: 'Checkout',
-    url: '/checkout',
-  },
-}

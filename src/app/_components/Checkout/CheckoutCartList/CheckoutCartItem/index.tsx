@@ -26,7 +26,7 @@ const CheckoutCartItem: React.FC<CheckoutCartItemProps> = ({
         )}
       </Link>
       <div className="ml-4 flex flex-col justify-between">
-        <h3 className="font-bold">{title}</h3>
+        <h3 className="font-bold truncate max-w-[150px]">{title}</h3>
         <p>{product.price}$</p>
         <p>Quantity: {qty}</p>
       </div>

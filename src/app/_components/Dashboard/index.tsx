@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MonthlyRevenueChart from '../Chart';
-
+import ProductSellChart from '../Chart/ProductChart';
+import { toast } from 'sonner';
 const Dashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [productsInStock, setProductsInStock] = useState(0);
@@ -9,6 +10,7 @@ const Dashboard = () => {
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [availableYears, setAvailableYears] = useState([]);
+  const [productSales, setProductSales] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,16 +19,21 @@ const Dashboard = () => {
           fetch('http://localhost:3000/api/products').then((res) => res.json()),
           fetch('http://localhost:3000/api/orders').then((res) => res.json()),
         ]);
-
+        console.log(ordersResponse)
         const years = new Set();
         let totalRev = 0;
         let pendingCount = 0;
         let completedCount = 0;
         const monthlyRev = new Array(12).fill(0);
+        const productSalesData = [];
 
         ordersResponse.docs.forEach((order) => {
           const orderYear = new Date(order.createdAt).getFullYear();
           years.add(orderYear);
+
+          order.items.forEach(item => {
+            productSalesData.push({ product: item.product.title, quantity: item.quantity });
+          });
 
           if (order.state === 'completed' && orderYear === selectedYear) {
             totalRev += order.total;
@@ -42,6 +49,7 @@ const Dashboard = () => {
         setProductsInStock(productsResponse.totalDocs);
         setPendingInvoices(pendingCount);
         setCompletedInvoices(completedCount);
+        setProductSales(productSalesData);
 
         const formattedMonthlyRev = monthlyRev.map((revenue, index) => ({
           month: index + 1,
@@ -49,10 +57,10 @@ const Dashboard = () => {
         }));
 
         setMonthlyRevenue(formattedMonthlyRev);
-        setAvailableYears(Array.from(years).sort((a:number, b:number) => b - a));
+        setAvailableYears(Array.from(years).sort((a: number, b: number) => b - a));
 
       } catch (error) {
-        console.log(error);
+        toast.error(error);
       }
     };
 
@@ -97,6 +105,10 @@ const Dashboard = () => {
       <div className="bg-white p-4 rounded shadow">
         <h2 className="text-xl font-semibold mb-4">Monthly Revenue for {selectedYear}</h2>
         <MonthlyRevenueChart data={monthlyRevenue} />
+      </div>
+      <div className="bg-white p-4 rounded shadow">
+        <h2 className="text-xl font-semibold mb-4">Product Sales</h2>
+        <ProductSellChart data={productSales} />
       </div>
     </div>
   );

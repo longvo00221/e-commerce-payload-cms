@@ -8,7 +8,7 @@ import { Blocks } from '../../_components/Blocks'
 import { Gutter } from '../../_components/Gutter'
 import { HR } from '../../_components/HR'
 import Filters from './Filters'
-
+import {toast} from 'sonner'
 import classes from './index.module.scss'
 import { Metadata } from 'next'
 
@@ -27,7 +27,7 @@ const Products = async () => {
 
     categories = await fetchDocs<Category>('categories')
   } catch (error) {
-    console.log(error)
+    toast.error(error)
   }
 
   return (

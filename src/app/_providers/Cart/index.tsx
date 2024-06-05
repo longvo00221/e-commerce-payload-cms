@@ -233,7 +233,7 @@ export const CartProvider = props => {
       const price = typeof item.product === 'object' ? parseFloat(item.product.price) : 0;
   
       // Debugging: Check the price before calculation
-      console.log(price);
+      // console.log(price);
   
       // Check if the price is a number and add it to the total
       return typeof price === 'number'
@@ -242,7 +242,7 @@ export const CartProvider = props => {
     }, 0) || 0;
   
     // Debugging: Check the total before setting
-    console.log(newTotal);
+    // console.log(newTotal);
   
     setTotal({
       formatted: newTotal.toLocaleString('en-US', {

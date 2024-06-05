@@ -28,7 +28,7 @@ const HeaderComponent: React.FC<HeaderComponentProps> = ({ header }) => {
             <Link href="/">
                 <Image loading="lazy" src="/logo.png" alt="logo" width={120} height={20} className="w-[80px] h-13"/>
             </Link>
-            <div>
+            <div className="md:hidden block">
                 <Button variant="ghost" onClick={()=>setIsNavMobileOpen(true)}>
                     <Image src="/assets/icons/menu.svg" alt="menu icon" width={24} height={24}/>
                 </Button>
