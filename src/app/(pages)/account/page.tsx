@@ -10,21 +10,11 @@ import { LowImpactHero } from '../../_heros/LowImpact';
 import { getMeUser } from '../../_utilities/getMeUser';
 import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 import AccountForm from './AccountForm';
-
-type Purchase = {
-  slug: string;
-  title: string;
-};
-
-type User = {
-  purchases?: Purchase[] | string[];
-};
-
+import type { User } from '../../../payload/payload-types';
 type AccountProps = {
-  user: User;
-};
-
-const Account: React.FC<AccountProps> = ({ user }) => {
+  user:User | null
+}
+const Account:React.FC<AccountProps> = ({ user }) => {
   return (
     <Fragment>
       <Gutter>
@@ -71,21 +61,23 @@ const Account: React.FC<AccountProps> = ({ user }) => {
           which are directly associated with individual payments.
         </p>
         <div>
-          {user?.purchases?.length ? (
+          {user?.purchases?.length || 0 > 0 ? (
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {user.purchases.map((purchase, index) => (
-                <li key={index} className="p-4 bg-gray-100 rounded-md">
-                  {typeof purchase === 'string' ? (
-                    <p>{purchase}</p>
-                  ) : (
-                    <h4>
-                      <Link href={`/products/${purchase.slug}`}>
-                        <a className="text-blue-500 hover:underline">{purchase.title}</a>
-                      </Link>
-                    </h4>
-                  )}
-                </li>
-              ))}
+              {user?.purchases?.map((purchase, index) => {
+                return (
+                  <li key={index} className="p-4 bg-gray-100 rounded-md">
+                    {typeof purchase === 'string' ? (
+                      <p>{purchase}</p>
+                    ) : (
+                      <h4>
+                        <Link href={`/products/${purchase.slug}`}>
+                          <a className="text-blue-500 hover:underline">{purchase.title}</a>
+                        </Link>
+                      </h4>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           ) : (
             <div className="text-gray-500">You have no purchases.</div>
