@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MonthlyRevenueChart from '../Chart';
 import ProductSellChart from '../Chart/ProductChart';
 import { toast } from 'sonner';
+
 const Dashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [productsInStock, setProductsInStock] = useState(0);
@@ -19,7 +20,7 @@ const Dashboard = () => {
           fetch('http://localhost:3000/api/products').then((res) => res.json()),
           fetch('http://localhost:3000/api/orders').then((res) => res.json()),
         ]);
-        console.log(ordersResponse)
+
         const years = new Set();
         let totalRev = 0;
         let pendingCount = 0;
@@ -31,15 +32,15 @@ const Dashboard = () => {
           const orderYear = new Date(order.createdAt).getFullYear();
           years.add(orderYear);
 
-          order.items.forEach(item => {
-            productSalesData.push({ product: item.product.title, quantity: item.quantity });
-          });
-
           if (order.state === 'completed' && orderYear === selectedYear) {
             totalRev += order.total;
             completedCount++;
             const month = new Date(order.createdAt).getMonth();
             monthlyRev[month] += order.total;
+
+            order.items.forEach(item => {
+              productSalesData.push({ product: item.product.title, quantity: item.quantity });
+            });
           } else if (order.state === 'pending' && orderYear === selectedYear) {
             pendingCount++;
           }
@@ -57,10 +58,10 @@ const Dashboard = () => {
         }));
 
         setMonthlyRevenue(formattedMonthlyRev);
-        setAvailableYears(Array.from(years).sort((a: number, b: number) => b - a));
+        setAvailableYears(Array.from(years).sort((a:number, b:number) => b - a));
 
       } catch (error) {
-        toast.error(error);
+        toast.error(error.message);
       }
     };
 
