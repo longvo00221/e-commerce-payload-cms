@@ -12,9 +12,10 @@ import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 import AccountForm from './AccountForm';
 import type { User } from '../../../payload/payload-types';
 type AccountProps = {
-  user:User | null
+  user: any
 }
-const Account:React.FC<AccountProps> = ({ user }) => {
+const Account: React.FC<AccountProps> = ({ user }) => {
+
   return (
     <Fragment>
       <Gutter>
