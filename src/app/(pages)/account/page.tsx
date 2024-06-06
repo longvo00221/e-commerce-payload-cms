@@ -11,10 +11,8 @@ import { getMeUser } from '../../_utilities/getMeUser';
 import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 import AccountForm from './AccountForm';
 import type { User } from '../../../payload/payload-types';
-type AccountProps = {
-  user: any
-}
-const Account: React.FC<AccountProps> = ({ user }) => {
+
+const Account= ({ user }:any) => {
 
   return (
     <Fragment>
@@ -105,11 +103,11 @@ const Account: React.FC<AccountProps> = ({ user }) => {
 
 export default Account;
 
-export const metadata: Metadata = {
-  title: 'Account',
-  description: 'Create an account or log in to your existing account.',
-  openGraph: mergeOpenGraph({
-    title: 'Account',
-    url: '/account',
-  }),
-};
+// export const metadata: Metadata = {
+//   title: 'Account',
+//   description: 'Create an account or log in to your existing account.',
+//   openGraph: mergeOpenGraph({
+//     title: 'Account',
+//     url: '/account',
+//   }),
+// };
