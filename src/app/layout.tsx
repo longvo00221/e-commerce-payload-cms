@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import {Montserrat} from 'next/font/google'
+import {Inter} from 'next/font/google'
 import { AdminBar } from './_components/AdminBar'
 import { Footer } from './_components/Footer'
 import { Header } from './_components/Header'
@@ -9,11 +9,12 @@ import { InitTheme } from './_providers/Theme/InitTheme'
 import { mergeOpenGraph } from './_utilities/mergeOpenGraph'
 import "./global.css"
 import './_css/app.scss'
-const monst = Montserrat({
+const monst = Inter({
   subsets:['latin'],
   weight: ['400', '500', '600', '700'],
   variable:'--font-montserrat',
 })
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
