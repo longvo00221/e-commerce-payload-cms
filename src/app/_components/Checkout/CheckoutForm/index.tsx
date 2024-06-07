@@ -1,10 +1,10 @@
 'use client'
-import React from 'react';
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from 'react-hook-form';
-import {z} from 'zod'
+import React from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-import { Button } from "../../../components/ui/button"
+import { Button } from '../../../components/ui/button'
 import {
   Form,
   FormControl,
@@ -12,26 +12,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form"
-import { Input } from "../../../components/ui/input"
-import type { Order, Product } from '../../../../payload/payload-types';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
+} from '../../../components/ui/form'
+import { Input } from '../../../components/ui/input'
+import type { Order, Product } from '../../../../payload/payload-types'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 type CheckoutFormProps = {
-  cart: { items?: { product?: string | Product; quantity?: number; id?: string; }[]; }
-  cartTotal: { formatted: string; raw: number; };
-};
+  cart: { items?: { product?: string | Product; quantity?: number; id?: string }[] }
+  cartTotal: { formatted: string; raw: number }
+}
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "name must be at least 2 characters.",
+    message: 'name must be at least 2 characters.',
   }),
   phone: z.string().min(10, {
-    message: "phone must be at least 10 characters.",
+    message: 'phone must be at least 10 characters.',
   }),
   address: z.string().min(2, {
-    message: "address must be at least 2 characters.",
+    message: 'address must be at least 2 characters.',
   }),
 })
 
@@ -39,10 +39,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ cart, cartTotal }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      phone: "",
-      address: "",
-    }
+      name: '',
+      phone: '',
+      address: '',
+    },
   })
   const router = useRouter()
 
@@ -61,7 +61,16 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ cart, cartTotal }) => {
           address: values.address,
           items: (cart?.items || [])?.map(({ product, quantity }) => {
             if (typeof product === 'object') {
-              const { color, createdAt, id, price, priceJSON, publishedOn, stripeProductID, title } = product;
+              const {
+                color,
+                createdAt,
+                id,
+                price,
+                priceJSON,
+                publishedOn,
+                stripeProductID,
+                title,
+              } = product
               return {
                 product: id,
                 color,
@@ -73,9 +82,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ cart, cartTotal }) => {
                 stripeProductID,
                 title,
                 quantity,
-              };
+              }
             } else {
-              return { product, quantity };
+              return { product, quantity }
             }
           }),
         }),
@@ -148,4 +157,4 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ cart, cartTotal }) => {
   )
 }
 
-export default CheckoutForm;
+export default CheckoutForm

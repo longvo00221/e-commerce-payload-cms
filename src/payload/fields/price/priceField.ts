@@ -1,16 +1,15 @@
-import { Field } from 'payload/types';
-import InputField from './inputField/index';
+import { Field } from 'payload/types'
+import InputField from './inputField/index'
 export const validatePrice = (value: string) => {
-    const isValidPrice = /^\d+(\.\d{1,2})?$/.test(value);
-    
-    if (!isValidPrice) {
-      return 'Please enter a valid price';
-    }
-    
-    return true;
-  };
-  
-  
+  const isValidPrice = /^\d+(\.\d{1,2})?$/.test(value)
+
+  if (!isValidPrice) {
+    return 'Please enter a valid price'
+  }
+
+  return true
+}
+
 const priceField: Field = {
   name: 'price',
   label: 'Price',
@@ -20,6 +19,6 @@ const priceField: Field = {
       Field: InputField,
     },
   },
-};
+}
 
-export default priceField;
+export default priceField

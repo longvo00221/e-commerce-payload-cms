@@ -37,7 +37,7 @@ export const RemoveFromCartButton: React.FC<{
       onClick={handleDeleteProductFromCart}
       className="flex items-center justify-center p-3 hover:bg-black/10 rounded-md "
     >
-      <Image src="/assets/icons/trash.svg" alt="trash icon" width={25} height={25}/>
+      <Image src="/assets/icons/trash.svg" alt="trash icon" width={25} height={25} />
     </Button>
   )
 }

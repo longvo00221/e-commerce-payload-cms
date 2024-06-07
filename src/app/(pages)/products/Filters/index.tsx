@@ -30,19 +30,21 @@ const Filters = ({ categories }: { categories: Category[] }) => {
       <div>
         <h6 className={classes.title}>Categories</h6>
         <div className={classes.categories}>
-          {categories?.filter(category => category.parent?.title === 'stores')?.map(category => {
-            const isSelected = categoryFilters.includes(category.id)
+          {categories
+            ?.filter(category => category.parent?.title === 'stores')
+            ?.map(category => {
+              const isSelected = categoryFilters.includes(category.id)
 
-            return (
-              <Checkbox
-                key={category.id}
-                label={category.title}
-                value={category.id}
-                isSelected={isSelected}
-                onClickHandler={handleCategories}
-              />
-            )
-          })}
+              return (
+                <Checkbox
+                  key={category.id}
+                  label={category.title}
+                  value={category.id}
+                  isSelected={isSelected}
+                  onClickHandler={handleCategories}
+                />
+              )
+            })}
         </div>
         <HR className={classes.hr} />
         <h6 className={classes.title}>Sort By</h6>

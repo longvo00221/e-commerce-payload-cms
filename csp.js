@@ -24,7 +24,7 @@ const policies = {
     'https://api.stripe.com',
     'https://maps.googleapis.com',
     'https://script.google.com',
-    'https://script.googleusercontent.com', 
+    'https://script.googleusercontent.com',
   ],
 }
 

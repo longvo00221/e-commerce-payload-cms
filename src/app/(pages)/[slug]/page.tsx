@@ -12,7 +12,6 @@ import { Hero } from '../../_components/Hero'
 import { generateMeta } from '../../_utilities/generateMeta'
 import { Gutter } from '../../_components/Gutter'
 
-
 export const dynamic = 'force-dynamic'
 import classes from './index.module.scss'
 import Categories from '../../_components/Categories'
@@ -55,26 +54,25 @@ export default async function Page({ params: { slug = 'home' } }) {
     <React.Fragment>
       {slug === 'home' ? (
         <section className="relative">
-          <ContactComponent/>
-          <Hero {...hero}/>
+          <ContactComponent />
+          <Hero {...hero} />
           <Gutter className={classes.home}>
-            <Categories categories={categories}/>
+            <Categories categories={categories} />
             {/* <Services/> */}
-            <Promotion/>
-            <Benefits/>
+            <Promotion />
+            <Benefits />
             <MailContact />
           </Gutter>
         </section>
       ) : (
-       <div>
+        <div>
           <Hero {...hero} />
           <Blocks
             blocks={layout}
             disableTopPadding={!hero || hero?.type === 'none' || hero?.type === 'lowImpact'}
           />
-       </div>
+        </div>
       )}
-     
     </React.Fragment>
   )
 }

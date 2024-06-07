@@ -34,7 +34,7 @@ export default async function Product({ params: { slug } }) {
   if (!product) {
     notFound()
   }
-  const { relatedProducts,details,specification } = product
+  const { relatedProducts, details, specification } = product
   return (
     <div className="md:py-12 py-8">
       <ProductHero product={product} />
@@ -60,7 +60,7 @@ export default async function Product({ params: { slug } }) {
           },
         ]}
       />
-      <ProductDetails details={details} specification={specification}/>
+      <ProductDetails details={details} specification={specification} />
     </div>
   )
 }

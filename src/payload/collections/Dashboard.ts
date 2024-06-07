@@ -1,6 +1,5 @@
-import { CollectionConfig } from 'payload/types';
-import Dashboard from '../../app/_components/Dashboard';
-
+import { CollectionConfig } from 'payload/types'
+import Dashboard from '../../app/_components/Dashboard'
 
 const DashboardConfig: CollectionConfig = {
   slug: 'dashboard',
@@ -21,6 +20,6 @@ const DashboardConfig: CollectionConfig = {
       },
     },
   ],
-};
+}
 
-export default DashboardConfig;
+export default DashboardConfig

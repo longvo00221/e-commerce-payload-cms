@@ -7,7 +7,6 @@ export const PRODUCT_CATEGORIES = `categories {
   }
 }`
 
-
 export const CATEGORIES = `
 query Categories{
   Categories(limit:300) {

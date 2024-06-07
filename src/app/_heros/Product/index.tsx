@@ -13,7 +13,7 @@ export const ProductHero: React.FC<{
   product: Product
 }> = ({ product }) => {
   const { title, categories, meta: { image: metaImage, description } = {} } = product
-  const { categoryFilters, setCategoryFilters  } = useFilter()
+  const { categoryFilters, setCategoryFilters } = useFilter()
   return (
     <Gutter className={classes.productHero}>
       <div className={classes.mediaWrapper}>
@@ -29,14 +29,17 @@ export const ProductHero: React.FC<{
         <div className={classes.categoryWrapper}>
           <div className={classes.categories}>
             {categories?.map((category, index) => {
-              const { title: categoryTitle,id: categoryID } = category as Category
+              const { title: categoryTitle, id: categoryID } = category as Category
 
               const titleToUse = categoryTitle || 'Generic'
               const isLast = index === categories.length - 1
 
               return (
                 <div key={index} className={classes.category}>
-                  <span className='font-semibol'>Categories:</span> <Link href="/products" onClick={()=>setCategoryFilters([categoryID])}>{titleToUse} {!isLast && <Fragment>, &nbsp;</Fragment>}</Link>
+                  <span className="font-semibol">Categories:</span>{' '}
+                  <Link href="/products" onClick={() => setCategoryFilters([categoryID])}>
+                    {titleToUse} {!isLast && <Fragment>, &nbsp;</Fragment>}
+                  </Link>
                   <span className={classes.separator}>|</span>
                 </div>
               )
@@ -45,14 +48,15 @@ export const ProductHero: React.FC<{
           <p className={classes.stock}> In stock</p>
         </div>
 
-       <div className="flex items-start justify-between flex-col gap-5">
-       <div>
-          <h3 className="font-bold mr-1">Price:</h3>{product?.price}$
+        <div className="flex items-start justify-between flex-col gap-5">
+          <div>
+            <h3 className="font-bold mr-1">Price:</h3>
+            {product?.price}$
           </div>
           <div className="Color">
-            <ColorComponent color={product?.color}/>
+            <ColorComponent color={product?.color} />
           </div>
-       </div>
+        </div>
         <div className={classes.description}>
           <h3 className="font-bold text-lg">Description</h3>
           <p className="text-sm font-normal">{description}</p>
@@ -63,10 +67,12 @@ export const ProductHero: React.FC<{
     </Gutter>
   )
 }
-const ColorComponent = (color:any) => {
+const ColorComponent = (color: any) => {
   const colorr = color.color
-  return (<div>
-    <h3 className="font-bold">Color:</h3>
-    <div className={classes.chip} style={{ backgroundColor: colorr as string }} />
-  </div>)
+  return (
+    <div>
+      <h3 className="font-bold">Color:</h3>
+      <div className={classes.chip} style={{ backgroundColor: colorr as string }} />
+    </div>
+  )
 }

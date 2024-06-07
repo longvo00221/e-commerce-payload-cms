@@ -54,11 +54,7 @@ export const AddToCartButton: React.FC<{
       ]
         .filter(Boolean)
         .join(' ')}
-      onClick={
-        !isInCart
-          ? handleAddtoCart
-          : undefined
-      }
+      onClick={!isInCart ? handleAddtoCart : undefined}
     />
   )
 }

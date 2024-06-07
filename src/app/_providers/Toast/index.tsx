@@ -1,7 +1,6 @@
-import React from 'react';
-import { Toaster } from 'sonner';
+import React from 'react'
+import { Toaster } from 'sonner'
 const ToastProvider = () => {
-    
-    return  <Toaster position='bottom-center'/>
+  return <Toaster position="bottom-center" />
 }
-export default ToastProvider;
+export default ToastProvider

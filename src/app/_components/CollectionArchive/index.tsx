@@ -67,55 +67,58 @@ export const CollectionArchive: React.FC<Props> = props => {
   const observerRef = useRef<HTMLDivElement | null>(null)
   const [page, setPage] = useState(1)
 
-  const fetchMoreData = useCallback(async (reset = false) => {
-    const searchQuery = qs.stringify(
-      {
-        sort,
-        where: {
-          ...(categoryFilters && categoryFilters?.length > 0
-            ? {
-                categories: {
-                  in:
-                    typeof categoryFilters === 'string'
-                      ? [categoryFilters]
-                      : categoryFilters.map((cat: string) => cat).join(','),
-                },
-              }
-            : {}),
+  const fetchMoreData = useCallback(
+    async (reset = false) => {
+      const searchQuery = qs.stringify(
+        {
+          sort,
+          where: {
+            ...(categoryFilters && categoryFilters?.length > 0
+              ? {
+                  categories: {
+                    in:
+                      typeof categoryFilters === 'string'
+                        ? [categoryFilters]
+                        : categoryFilters.map((cat: string) => cat).join(','),
+                  },
+                }
+              : {}),
+          },
+          limit,
+          page,
+          depth: 1,
         },
-        limit,
-        page,
-        depth: 1,
-      },
-      { encode: false },
-    )
-
-    try {
-      setIsLoading(true)
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${relationTo}?${searchQuery}`,
+        { encode: false },
       )
-      const json = await req.json()
-      const { docs, totalDocs, totalPages, hasNextPage, nextPage } = json as Result
 
-      setResults(prevResults => ({
-        ...prevResults,
-        docs: reset ? docs : [...prevResults.docs, ...docs],
-        totalDocs,
-        totalPages,
-        hasNextPage,
-        nextPage,
-      }))
-      setIsLoading(false)
-      if (typeof onResultChange === 'function') {
-        onResultChange(json)
+      try {
+        setIsLoading(true)
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${relationTo}?${searchQuery}`,
+        )
+        const json = await req.json()
+        const { docs, totalDocs, totalPages, hasNextPage, nextPage } = json as Result
+
+        setResults(prevResults => ({
+          ...prevResults,
+          docs: reset ? docs : [...prevResults.docs, ...docs],
+          totalDocs,
+          totalPages,
+          hasNextPage,
+          nextPage,
+        }))
+        setIsLoading(false)
+        if (typeof onResultChange === 'function') {
+          onResultChange(json)
+        }
+      } catch (err) {
+        console.warn(err) // eslint-disable-line no-console
+        setIsLoading(false)
+        setError(`Unable to load "${relationTo} archive" data at this time.`)
       }
-    } catch (err) {
-      console.warn(err) // eslint-disable-line no-console
-      setIsLoading(false)
-      setError(`Unable to load "${relationTo} archive" data at this time.`)
-    }
-  }, [page, categoryFilters, relationTo, onResultChange, sort, limit, infiniteScroll])
+    },
+    [page, categoryFilters, relationTo, onResultChange, sort, limit, infiniteScroll],
+  )
 
   useEffect(() => {
     if (infiniteScroll) {
@@ -125,7 +128,7 @@ export const CollectionArchive: React.FC<Props> = props => {
             setPage(prevPage => prevPage + 1)
           }
         },
-        { threshold: 1.0 }
+        { threshold: 1.0 },
       )
 
       if (observerRef.current) {
@@ -185,7 +188,11 @@ export const CollectionArchive: React.FC<Props> = props => {
             />
           )
         )}
-        {isLoading && <div><Loader/></div>}
+        {isLoading && (
+          <div>
+            <Loader />
+          </div>
+        )}
       </Fragment>
     </div>
   )

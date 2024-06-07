@@ -12,7 +12,7 @@ export const Orders: CollectionConfig = {
   slug: 'orders',
   admin: {
     useAsTitle: 'ID',
-    defaultColumns: [ 'name', 'phone', 'state','createdAt', 'orderedBy'],
+    defaultColumns: ['name', 'phone', 'state', 'createdAt', 'orderedBy'],
     preview: doc => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/orders/${doc.id}`,
   },
   hooks: {
@@ -55,10 +55,10 @@ export const Orders: CollectionConfig = {
       required: true,
     },
     {
-      name:'state',
-      type:'select',
-      defaultValue:'pending',
-      required:false,
+      name: 'state',
+      type: 'select',
+      defaultValue: 'pending',
+      required: false,
       options: [
         {
           label: 'Pending',

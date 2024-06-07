@@ -10,7 +10,7 @@ import { Blocks } from '../../_components/Blocks'
 import { Gutter } from '../../_components/Gutter'
 import { generateMeta } from '../../_utilities/generateMeta'
 import { CartPage } from './CartPage'
-import {toast} from 'sonner'
+import { toast } from 'sonner'
 import classes from './index.module.scss'
 export const dynamic = 'force-dynamic'
 
@@ -38,9 +38,7 @@ export default async function Cart() {
 
   try {
     settings = await fetchSettings()
-  } catch (error) {
-
-  }
+  } catch (error) {}
 
   return (
     <div className={classes.container}>
@@ -70,4 +68,3 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return generateMeta({ doc: page })
 }
-

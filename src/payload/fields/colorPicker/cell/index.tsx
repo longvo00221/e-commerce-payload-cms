@@ -1,14 +1,12 @@
-import React from 'react';
-import { Props } from 'payload/components/views/Cell';
-import '../inputField/styles.scss';
+import React from 'react'
+import { Props } from 'payload/components/views/Cell'
+import '../inputField/styles.scss'
 
-const Cell: React.FC<Props> = (props) => {
-  const { cellData } = props;
-  if (!cellData) return null;
+const Cell: React.FC<Props> = props => {
+  const { cellData } = props
+  if (!cellData) return null
 
-  return (
-    <div className="chip" style={{ backgroundColor: cellData as string }} />
-  );
-};
+  return <div className="chip" style={{ backgroundColor: cellData as string }} />
+}
 
-export default Cell;
+export default Cell

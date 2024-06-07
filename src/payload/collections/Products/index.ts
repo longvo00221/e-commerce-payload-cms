@@ -146,15 +146,14 @@ const Products: CollectionConfig = {
     colorField,
     priceField,
     {
-      name:"details",
-      type:"richText",
-      label:"Details",
-
+      name: 'details',
+      type: 'richText',
+      label: 'Details',
     },
     {
       name: 'specification',
       type: 'json',
-      label:'Technical Specification',
+      label: 'Technical Specification',
       required: true,
     },
     slugField(),

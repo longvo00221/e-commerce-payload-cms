@@ -38,7 +38,7 @@ export const CartPage: React.FC<{
         <Fragment>
           {cartIsEmpty ? (
             <div className={classes.empty}>
-              <EmptyCart/>
+              <EmptyCart />
               {typeof productsPage === 'object' && productsPage?.slug && (
                 <Fragment>
                   {' '}
@@ -113,20 +113,18 @@ export const CartPage: React.FC<{
                 </div>
 
                 <div className="flex gap-3 flex-col items-center justify-center">
-                <Button
-                  className="w-full"
-                  href={user ? '/checkout' : '/login?redirect=%2Fcheckout'}
-                  label={user ? 'Checkout stripe' : 'Login to checkout'}
-                  appearance="primary"
-                
-                />
-                 <Button
-                  className="w-full"
-                  href={user ? '/normal-checkout' : '/login?redirect=%2Fcheckout'}
-                  label={user ? 'Checkout normal' : 'Login to checkout'}
-                  appearance="secondary"
-                
-                />
+                  <Button
+                    className="w-full"
+                    href={user ? '/checkout' : '/login?redirect=%2Fcheckout'}
+                    label={user ? 'Checkout stripe' : 'Login to checkout'}
+                    appearance="primary"
+                  />
+                  <Button
+                    className="w-full"
+                    href={user ? '/normal-checkout' : '/login?redirect=%2Fcheckout'}
+                    label={user ? 'Checkout normal' : 'Login to checkout'}
+                    appearance="secondary"
+                  />
                 </div>
               </div>
             </div>

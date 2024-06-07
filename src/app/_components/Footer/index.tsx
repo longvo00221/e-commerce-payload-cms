@@ -13,7 +13,6 @@ export async function Footer() {
   try {
     footer = await fetchFooter()
   } catch (error) {
-
     console.error(error)
   }
 
@@ -21,7 +20,7 @@ export async function Footer() {
 
   return (
     <div>
-      <FooterComponent footer={footer}/>
+      <FooterComponent footer={footer} />
     </div>
   )
 }

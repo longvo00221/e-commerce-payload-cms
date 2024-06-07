@@ -1,84 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import MonthlyRevenueChart from '../Chart';
-import ProductSellChart from '../Chart/ProductChart';
-import { toast } from 'sonner';
+import React, { useState, useEffect } from 'react'
+import MonthlyRevenueChart from '../Chart'
+import ProductSellChart from '../Chart/ProductChart'
+import { toast } from 'sonner'
 
 const Dashboard = () => {
-  const [totalRevenue, setTotalRevenue] = useState(0);
-  const [productsInStock, setProductsInStock] = useState(0);
-  const [pendingInvoices, setPendingInvoices] = useState(0);
-  const [completedInvoices, setCompletedInvoices] = useState(0);
-  const [monthlyRevenue, setMonthlyRevenue] = useState([]);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [availableYears, setAvailableYears] = useState([]);
-  const [productSales, setProductSales] = useState([]);
+  const [totalRevenue, setTotalRevenue] = useState(0)
+  const [productsInStock, setProductsInStock] = useState(0)
+  const [pendingInvoices, setPendingInvoices] = useState(0)
+  const [completedInvoices, setCompletedInvoices] = useState(0)
+  const [monthlyRevenue, setMonthlyRevenue] = useState([])
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+  const [availableYears, setAvailableYears] = useState([])
+  const [productSales, setProductSales] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [productsResponse, ordersResponse] = await Promise.all([
-          fetch('http://localhost:3000/api/products').then((res) => res.json()),
-          fetch('http://localhost:3000/api/orders').then((res) => res.json()),
-        ]);
+          fetch('http://localhost:3000/api/products').then(res => res.json()),
+          fetch('http://localhost:3000/api/orders').then(res => res.json()),
+        ])
 
-        const years = new Set();
-        let totalRev = 0;
-        let pendingCount = 0;
-        let completedCount = 0;
-        const monthlyRev = new Array(12).fill(0);
-        const productSalesData = [];
+        const years = new Set()
+        let totalRev = 0
+        let pendingCount = 0
+        let completedCount = 0
+        const monthlyRev = new Array(12).fill(0)
+        const productSalesData = []
 
-        ordersResponse.docs.forEach((order) => {
-          const orderYear = new Date(order.createdAt).getFullYear();
-          years.add(orderYear);
+        ordersResponse.docs.forEach(order => {
+          const orderYear = new Date(order.createdAt).getFullYear()
+          years.add(orderYear)
 
           if (order.state === 'completed' && orderYear === selectedYear) {
-            totalRev += order.total;
-            completedCount++;
-            const month = new Date(order.createdAt).getMonth();
-            monthlyRev[month] += order.total;
+            totalRev += order.total
+            completedCount++
+            const month = new Date(order.createdAt).getMonth()
+            monthlyRev[month] += order.total
 
             order.items.forEach(item => {
-              productSalesData.push({ product: item.product.title, quantity: item.quantity });
-            });
+              productSalesData.push({ product: item.product.title, quantity: item.quantity })
+            })
           } else if (order.state === 'pending' && orderYear === selectedYear) {
-            pendingCount++;
+            pendingCount++
           }
-        });
+        })
 
-        setTotalRevenue(totalRev);
-        setProductsInStock(productsResponse.totalDocs);
-        setPendingInvoices(pendingCount);
-        setCompletedInvoices(completedCount);
-        setProductSales(productSalesData);
+        setTotalRevenue(totalRev)
+        setProductsInStock(productsResponse.totalDocs)
+        setPendingInvoices(pendingCount)
+        setCompletedInvoices(completedCount)
+        setProductSales(productSalesData)
 
         const formattedMonthlyRev = monthlyRev.map((revenue, index) => ({
           month: index + 1,
           revenue,
-        }));
+        }))
 
-        setMonthlyRevenue(formattedMonthlyRev);
-        setAvailableYears(Array.from(years).sort((a:number, b:number) => b - a));
-
+        setMonthlyRevenue(formattedMonthlyRev)
+        setAvailableYears(Array.from(years).sort((a: number, b: number) => b - a))
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error.message)
       }
-    };
+    }
 
-    fetchData();
-  }, [selectedYear]);
+    fetchData()
+  }, [selectedYear])
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
       <div className="mb-4">
-        <label htmlFor="year-select" className="mr-2">Select Year:</label>
+        <label htmlFor="year-select" className="mr-2">
+          Select Year:
+        </label>
         <select
           id="year-select"
           value={selectedYear}
-          onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+          onChange={e => setSelectedYear(parseInt(e.target.value))}
         >
-          {availableYears.map((year) => (
+          {availableYears.map(year => (
             <option key={year} value={year}>
               {year}
             </option>
@@ -112,7 +113,7 @@ const Dashboard = () => {
         <ProductSellChart data={productSales} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

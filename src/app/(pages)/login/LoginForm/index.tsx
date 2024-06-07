@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
         await login(data)
         if (redirect?.current) router.push(redirect.current as string)
         else router.push('/')
-        window.location.href="/"
+        window.location.href = '/'
       } catch (_) {
         setError('There was an error with the credentials provided. Please try again.')
       }
@@ -69,9 +69,9 @@ const LoginForm: React.FC = () => {
         appearance="primary"
         label={isLoading ? 'Processing' : 'Login'}
         disabled={isLoading}
-        className={[classes.submit,'rounded-md'].join(' ')}
+        className={[classes.submit, 'rounded-md'].join(' ')}
       />
-      <div className='flex flex-row md:flex-col items-center justify-center w-full'>
+      <div className="flex flex-row md:flex-col items-center justify-center w-full">
         <Link href={`/create-account${allParams}`}>Create an account</Link>
         <br />
         <Link href={`/recover-password${allParams}`}>Recover your password?</Link>

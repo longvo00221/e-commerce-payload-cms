@@ -224,35 +224,33 @@ export const CartProvider = props => {
   }, [])
 
   useEffect(() => {
-    if (!hasInitialized) return;
-  
-    const newTotal = cart?.items?.reduce((acc, item) => {
+    if (!hasInitialized) return
 
-      
-      // Parse the price if necessary, otherwise directly access it
-      const price = typeof item.product === 'object' ? parseFloat(item.product.price) : 0;
-  
-      // Debugging: Check the price before calculation
-      // console.log(price);
-  
-      // Check if the price is a number and add it to the total
-      return typeof price === 'number'
-        ? acc + price * (typeof item?.quantity === 'number' ? item?.quantity : 0)
-        : acc;
-    }, 0) || 0;
-  
+    const newTotal =
+      cart?.items?.reduce((acc, item) => {
+        // Parse the price if necessary, otherwise directly access it
+        const price = typeof item.product === 'object' ? parseFloat(item.product.price) : 0
+
+        // Debugging: Check the price before calculation
+        // console.log(price);
+
+        // Check if the price is a number and add it to the total
+        return typeof price === 'number'
+          ? acc + price * (typeof item?.quantity === 'number' ? item?.quantity : 0)
+          : acc
+      }, 0) || 0
+
     // Debugging: Check the total before setting
     // console.log(newTotal);
-  
+
     setTotal({
       formatted: newTotal.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
       }),
       raw: newTotal,
-    });
-  }, [cart, hasInitialized]);
-  
+    })
+  }, [cart, hasInitialized])
 
   return (
     <Context.Provider

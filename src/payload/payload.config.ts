@@ -69,7 +69,8 @@ export default buildConfig({
             ...config.resolve?.alias,
             dotenv: path.resolve(__dirname, './dotenv.js'),
             [path.resolve(__dirname, 'collections/Products/hooks/beforeChange')]: mockModulePath,
-            [path.resolve(__dirname, 'collections/Users/hooks/createStripeCustomer')]: mockModulePath,
+            [path.resolve(__dirname, 'collections/Users/hooks/createStripeCustomer')]:
+              mockModulePath,
             [path.resolve(__dirname, 'collections/Users/endpoints/customer')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/create-payment-intent')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/customers')]: mockModulePath,
@@ -79,7 +80,7 @@ export default buildConfig({
             express: mockModulePath,
           },
         },
-      };
+      }
     },
   },
   editor: slateEditor({}), // editor-config
@@ -95,8 +96,12 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
+  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
+    Boolean,
+  ),
+  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
+    Boolean,
+  ),
   endpoints: [
     {
       path: '/create-payment-intent',
@@ -143,7 +148,6 @@ export default buildConfig({
       uploadsCollection: 'media',
     }),
     payloadCloud(),
-  
   ],
   i18n: {
     fallbackLng: 'en',
@@ -166,4 +170,4 @@ export default buildConfig({
       },
     },
   },
-});
+})

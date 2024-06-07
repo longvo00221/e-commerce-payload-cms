@@ -17,19 +17,17 @@ const Services: CollectionConfig = {
     {
       name: 'price',
       type: 'text',
-     
     },
     {
       name: 'description',
       type: 'richText',
       required: true,
-      
     },
     {
-      name:'media',
-      type:'upload',
-      relationTo:'media',
-    }
+      name: 'media',
+      type: 'upload',
+      relationTo: 'media',
+    },
   ],
 }
 

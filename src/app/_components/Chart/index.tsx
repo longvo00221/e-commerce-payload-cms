@@ -1,8 +1,17 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React from 'react'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts'
 
 interface MonthlyRevenueChartProps {
-  data: { month: number; revenue: number }[];
+  data: { month: number; revenue: number }[]
 }
 
 const MonthlyRevenueChart: React.FC<MonthlyRevenueChartProps> = ({ data }) => {
@@ -17,7 +26,7 @@ const MonthlyRevenueChart: React.FC<MonthlyRevenueChartProps> = ({ data }) => {
         <Line type="monotone" dataKey="revenue" stroke="#8884d8" dot={{ strokeWidth: 2, r: 5 }} />
       </LineChart>
     </ResponsiveContainer>
-  );
-};
+  )
+}
 
-export default MonthlyRevenueChart;
+export default MonthlyRevenueChart

@@ -1,15 +1,15 @@
-import Service from "../Service";
+import Service from '../Service'
 
 type WithPriceProps = {
-    price: string;
-};
-
-function withPrice<P extends object>(WrappedComponent: React.ComponentType<P>) {
-    return (props: Omit<P, 'price'>) => {
-        return <WrappedComponent {...props as P} price="contact" />;
-    };
+  price: string
 }
 
-const ServiceWithPrice = withPrice(Service);
+function withPrice<P extends object>(WrappedComponent: React.ComponentType<P>) {
+  return (props: Omit<P, 'price'>) => {
+    return <WrappedComponent {...(props as P)} price="contact" />
+  }
+}
 
-export default ServiceWithPrice;
+const ServiceWithPrice = withPrice(Service)
+
+export default ServiceWithPrice

@@ -1,22 +1,16 @@
-import React from 'react';
-import Link from 'next/link';
-import { Media as MeDia } from '../../../Media';
-import { Media, Product } from '../../../../../payload/payload-types';
-
+import React from 'react'
+import Link from 'next/link'
+import { Media as MeDia } from '../../../Media'
+import { Media, Product } from '../../../../../payload/payload-types'
 
 interface CheckoutCartItemProps {
-  product: Product;
-  title: string;
-  metaImage: string | Media;
-  qty: number;
+  product: Product
+  title: string
+  metaImage: string | Media
+  qty: number
 }
 
-const CheckoutCartItem: React.FC<CheckoutCartItemProps> = ({
-  product,
-  title,
-  metaImage,
-  qty,
-}) => {
+const CheckoutCartItem: React.FC<CheckoutCartItemProps> = ({ product, title, metaImage, qty }) => {
   return (
     <li className="flex items-center py-4">
       <Link href={`/products/${product.slug}`} className="relative min-h-[100px] p-4 flex-shrink-0">
@@ -31,7 +25,7 @@ const CheckoutCartItem: React.FC<CheckoutCartItemProps> = ({
         <p>Quantity: {qty}</p>
       </div>
     </li>
-  );
-};
+  )
+}
 
-export default CheckoutCartItem;
+export default CheckoutCartItem

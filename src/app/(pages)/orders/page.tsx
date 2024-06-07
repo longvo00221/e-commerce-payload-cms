@@ -85,7 +85,7 @@ export default async function Orders() {
         </ul>
       )}
       <div className="text-center mt-5 w-full flex items-center justify-center">
-      <Button href="/account" appearance="primary" label="Go to account" />
+        <Button href="/account" appearance="primary" label="Go to account" />
       </div>
     </Gutter>
   )

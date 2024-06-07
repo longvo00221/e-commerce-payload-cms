@@ -1,18 +1,18 @@
 import React from 'react'
 import { Metadata } from 'next'
-import {Inter} from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { AdminBar } from './_components/AdminBar'
 import { Footer } from './_components/Footer'
 import { Header } from './_components/Header'
 import { Providers } from './_providers'
 import { InitTheme } from './_providers/Theme/InitTheme'
 import { mergeOpenGraph } from './_utilities/mergeOpenGraph'
-import "./global.css"
+import './global.css'
 import './_css/app.scss'
 const monst = Inter({
-  subsets:['latin'],
+  subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable:'--font-montserrat',
+  variable: '--font-montserrat',
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,10 +26,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={monst.variable}>
         <Providers>
           <AdminBar />
-          
+
           {/* @ts-expect-error */}
           <Header />
-          <main className='main'>{children}</main>
+          <main className="main">{children}</main>
           {/* @ts-expect-error */}
           <Footer />
         </Providers>

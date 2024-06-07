@@ -1,19 +1,18 @@
-import React, { Fragment } from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
+import React, { Fragment } from 'react'
+import { Metadata } from 'next'
+import Link from 'next/link'
 
-import { Button } from '../../_components/Button';
-import { Gutter } from '../../_components/Gutter';
-import { HR } from '../../_components/HR';
-import { RenderParams } from '../../_components/RenderParams';
-import { LowImpactHero } from '../../_heros/LowImpact';
-import { getMeUser } from '../../_utilities/getMeUser';
-import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
-import AccountForm from './AccountForm';
-import type { User } from '../../../payload/payload-types';
+import { Button } from '../../_components/Button'
+import { Gutter } from '../../_components/Gutter'
+import { HR } from '../../_components/HR'
+import { RenderParams } from '../../_components/RenderParams'
+import { LowImpactHero } from '../../_heros/LowImpact'
+import { getMeUser } from '../../_utilities/getMeUser'
+import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph'
+import AccountForm from './AccountForm'
+import type { User } from '../../../payload/payload-types'
 
-const Account= ({ user }:any) => {
-
+const Account = ({ user }: any) => {
   return (
     <Fragment>
       <Gutter>
@@ -88,20 +87,15 @@ const Account= ({ user }:any) => {
           These are the orders you have placed over time. Each order is associated with a payment
           intent. As you order products, they will appear in your "purchased products" list.
         </p>
-        <Button
-          className="ordersButton"
-          href="/orders"
-          appearance="primary"
-          label="View orders"
-        />
+        <Button className="ordersButton" href="/orders" appearance="primary" label="View orders" />
         <HR />
         <Button href="/logout" appearance="secondary" label="Log out" />
       </Gutter>
     </Fragment>
-  );
-};
+  )
+}
 
-export default Account;
+export default Account
 
 // export const metadata: Metadata = {
 //   title: 'Account',

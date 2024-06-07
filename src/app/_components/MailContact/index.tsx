@@ -1,10 +1,10 @@
 'use client'
-import React, { useState } from 'react';
-import { Input } from '../../components/ui/input';
-import { Button } from '../../components/ui/button';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from "@hookform/resolvers/zod"
+import React, { useState } from 'react'
+import { Input } from '../../components/ui/input'
+import { Button } from '../../components/ui/button'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Form,
   FormControl,
@@ -12,71 +12,74 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../components/ui/form"
-import {toast} from 'sonner'
-type MailContactProps = {
-  
-};
+} from '../../components/ui/form'
+import { toast } from 'sonner'
+type MailContactProps = {}
 const formSchema = z.object({
   email: z.string().email({
-    message: "Invalid email address.",
-  })
+    message: 'Invalid email address.',
+  }),
 })
 const MailContact: React.FC<MailContactProps> = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues:{
-      email:""
-    }
+    defaultValues: {
+      email: '',
+    },
   })
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try{
+    try {
       const data = new FormData()
-      data.append("email", values.email)
+      data.append('email', values.email)
       const SHEET_URL = process.env.NEXT_PUBLIC_SHEET_URL
       try {
-        await fetch(SHEET_URL,{
-          method:'POST',
-          body:data
+        await fetch(SHEET_URL, {
+          method: 'POST',
+          body: data,
         })
         form.reset()
-        toast.success("Thank you for your contact")
+        toast.success('Thank you for your contact')
       } catch (error) {
-        toast.error("Something went wrong. Please try again later.")
+        toast.error('Something went wrong. Please try again later.')
       }
-    }catch (err) {
+    } catch (err) {
       toast.error(err.message)
     }
-    }
+  }
 
   return (
     <div className="flex justify-center items-center border-t py-10">
       <div className="w-full max-w-sm">
-      <h3 className="font-semibold text-3xl mb-5">Contact with us</h3>
+        <h3 className="font-semibold text-3xl mb-5">Contact with us</h3>
         <div className="flex items-center md:flex-row flex-col justify-center">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex items-center gap-3 w-full">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-8 flex items-center gap-3 w-full"
+            >
               <FormField
-              control={form.control}
-              name="email"
-              render={({field})=>(
-                <FormItem>
-                  <FormControl>
-                    <Input {...field} placeholder="Enter your email" className="w-[250px]"/>
-                  </FormControl>
-                </FormItem>
-              )}/>
-              <Button type="submit" className="!mt-0">Submit</Button>
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter your email" className="w-[250px]" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="!mt-0">
+                Submit
+              </Button>
             </form>
           </Form>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MailContact;
-
+export default MailContact
 
 // sheet app script
 // var sheetName = 'Sheet1'
