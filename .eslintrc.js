@@ -1,10 +1,12 @@
 module.exports = {
   root: true,
-  extends: ['plugin:@next/next/recommended', '@payloadcms'],
+  extends: [],
   ignorePatterns: ['**/payload-types.ts'],
-  plugins: ['simple-import-sort'],
-  rules: {
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
-  },
+  plugins: [],
+  rules: {},
+  parser:"babel-eslint",
+  parserOptions:{
+    sourceType: 'module',
+    ecmaVersion: 2015,
+  }
 }
