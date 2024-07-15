@@ -28,9 +28,8 @@ Welcome to the E-commerce Platform repository! This project is developed using N
 ### Installation
 1. **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/e-commerce-platform.git
-    cd e-commerce-platform
-    ```
+    git clone https://github.com/longvo00221/e-commerce-payload-cms.git
+    cd e-commerce-payload-cms    ```
 
 2. **Install dependencies**
     ```bash
@@ -46,23 +45,6 @@ Welcome to the E-commerce Platform repository! This project is developed using N
     ```
     http://localhost:3000
     ```
-
-## Project Structure
-```
-/e-commerce-platform
-│
-├── /components            # Reusable React components
-├── /graphql               # GraphQL schemas and resolvers
-├── /models                # MongoDB models
-├── /pages                 # Next.js pages
-├── /public                # Public assets and images
-├── /styles                # Global styles and CSS files
-├── /utils                 # Utility functions
-├── /admin                 # Admin interface components and pages
-├── next.config.js         # Next.js configuration
-├── package.json           # Project dependencies and scripts
-└── README.md              # Project documentation
-```
 
 ## Configuration
 Create a `.env` file in the root directory and add the following environment variables:
